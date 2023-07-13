@@ -122,12 +122,14 @@ Do not download third party debloater tools.
 
 - [ ] Make Sure everything is up to date! 
 - [ ] Keep Camera / Mic / Location off when not in use
-- [ ] Consider using a non admin user 
+- [ ] Set UAC to the max, and consider using a non admin user 
 - [ ] Make sure whatever exploit mitigations that are supported by the hardware are on, see Controlled Folder Access as well
-- [ ] Using VMs to run untrusted executables (Hyper V / MDAG / Windows Sandbox)
-- [ ] Use attack surface reduction rules to harden Office, disable VBAs.
-- [ ] Configure Bitlocker 
-
+- [ ] Use VMs to run untrusted executables (Hyper V / MDAG / Windows Sandbox)
+- [ ] Use attack surface reduction rules to harden Office, disable VBA macros.
+- [ ] Configure Bitlocker
+- [ ] Apply the BlackLotus secure boot revocations
+- [ ] Use admx group policies to improve Edge security
+  
 # Keep Everything Updated
 
 Check your Windows Update settings page regularly, especially on the second Tuesday of each month, as Microsoft usually releases security updates then ("Patch Tuesday").
@@ -144,9 +146,6 @@ Due to currently terrible permission control, not all apps can be denied the cam
 
 # MDAG / Windows Sandbox
 
-# App Sandboxing (which in fairness is currently not in the best state)
-
-Due to the poor state of current desktop app sandboxing, be minimalistic and do not install unneeded apps. 
 
 
 
