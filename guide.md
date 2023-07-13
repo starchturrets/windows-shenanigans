@@ -63,11 +63,11 @@ Select the "Send no Diagnostic Data" Option, then click OK to apply changes.
 
 Windows Spotlight sends back similar hardware data to required diagnostics. As required diagnostics are sent anyways on Pro, this is not so much of a concern.
 
-If on Enterprise, 
+If on Enterprise:
 
-Enable the following Group Policy User Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off all Windows spotlight features.
+- [ ] Enable the following Group Policy User Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off all Windows spotlight features.
 
-Enable the following Group Policy Computer Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off cloud optimized content.
+- [ ] Enable the following Group Policy Computer Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off cloud optimized content.
 
 According to Microsoft docs, this must be done within **15 minutes of first install.**
 
@@ -84,10 +84,45 @@ Find the Cortana Group Policy objects under **Computer Configuration > Administr
 
 In addition, I've found that you also need to set **User Configuration > Administrative Templates > Windows Components > File Explorer > Turn off display of recent search entries in the File Explorer search box** to **Enabled.**
 
-# Defender / Smartscreen, hardening 
+# Defender / Smartscreen
 
-# Widgets / Live Tiles 
+Disable Automatic Sample Submission.
+Disable Check Apps and Files.
 
 # Edge Optional Features
 
+Go through `edge://settings/privacy` and disable all optional features.
+
+# Widgets / Live Tiles 
+
+These make potentially unneeded connections back to Microsoft, but from what I've seen they do not send sensitive user data back. However, if you wish to disable them:
+
+**Computer Configuration > 	Windows Components > Widgets > AllowWidgets** should be set to **Disabled**.
+
+
 # Debloating
+
+There are several things to put up with on Windows:
+
+- Manufacturer bloatware, such as preinstalled third party ~~malware~~ antiviruses
+- Start Menu shortcuts which are pinned by default
+- Preinstalled third party apps such as Spotify
+- Microsoft apps that you don't like
+
+Manufacturer bloatware usually isn't too much of a problem if you're doing a clean install, though OEMs can and have abused WPBT to get around this.
+
+Start menu shortcuts and preinstalled third party apps can be easily removed by right clicking and unpinning / uninstalling them.
+
+Microsoft Apps such as Cortana can be removed using the `winget` package manager.
+
+Do not download third party "debloater" tools.
+
+# Windows Defender stuff that isn't privacy related
+
+# MDAG / Windows Sandbox
+
+# App Sandboxing (which in fairness is currently not in the best state)
+
+
+
+
