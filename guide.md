@@ -121,7 +121,7 @@ Basically, turn off everything under the Services section.
 
 Under `edge://settings/sidebar`, disable the following:
 - [ ] App and notification settings > Discover > Show Discover
-- [ ] - [ ] App and notification settings > Discover > Automatically open Bing Chat in the sidebar
+- [ ] App and notification settings > Discover > Automatically open Bing Chat in the sidebar
 - [ ] Page Context
 - [ ] Automatically show shopping suggestions and prompts
 
