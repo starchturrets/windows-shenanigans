@@ -46,11 +46,15 @@ Based off what I've seen, these are the more relevant items:
 3. Bing Start Menu (Cortana and Search) 
 4. Edge Optional Features
 5. Certain aspects of Windows Defender (Smartscreen, Automatic Sample Submission)
-6. Widgets and Live Tiles 
+6. (Optional) Widgets and Live Tiles 
 
-# OS Diagnostics
+# OS Diagnostics / Windows Spotlight (Sends back hardware data, among other things)
 
-If you are on Pro, you cannot fully disable OS diagnostics. Opt out of optional diagnostics on first setup and do not attempt to download third party tools that claim to disable telemetry. 
+If you are on Pro, you cannot fully disable OS diagnostics. Opt out of optional diagnostics on first setup and do not attempt to download third party tools that claim to disable telemetry. Since you're sending hardware data anyways, it is most likely pointless to disable Spotlight on Pro edition.
+
+<details>
+
+<summary>If you are on Enterprise </summary>
 
 If on Enterprise, open the group policy editor and go to **Computer Configuration > Administrative Templates > Windows Components > Data Collection and Preview Builds.** 
 
@@ -59,17 +63,18 @@ Double-click **Allow Telemetry (or Allow diagnostic data on Windows 11 and Windo
 Select the "Send no Diagnostic Data" Option, then click OK to apply changes.
 
 
-# Windows Spotlight
+## Windows Spotlight
 
-Windows Spotlight sends back similar hardware data to required diagnostics. As required diagnostics are sent anyways on Pro, this is not so much of a concern.
-
-If on Enterprise:
+Windows Spotlight sends back similar hardware data to required diagnostics. To turn it off:
 
 - [ ] Enable the following Group Policy User Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off all Windows spotlight features.
 
 - [ ] Enable the following Group Policy Computer Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off cloud optimized content.
 
 According to Microsoft docs, this must be done within **15 minutes of first install.**
+
+</details>
+
 
 # Bing Start Menu
 
@@ -86,9 +91,12 @@ In addition, I've found that you also need to set **User Configuration > Adminis
 
 # Defender / Smartscreen
 
-Disable Automatic Sample Submission.
+Go to **Windows Security > Virus and Threat Protection > Manage Settings > Automatic Sample Submission.**
+Click to disable it.
 
-If not using Smart App Control, disable Check Apps and Files.
+If you have chosen to not use Smart App Control, go to **Windows Security > App and Browser Control > Check Apps and Files** and disable it.
+
+It is probably the best to also disable **Smartscreen for Microsoft Edge**, as it has been shown to leak full URLs and browsing history to Microsoft. 
 
 # Edge Optional Features
 
