@@ -87,15 +87,16 @@ In addition, I've found that you also need to set **User Configuration > Adminis
 # Defender / Smartscreen
 
 Disable Automatic Sample Submission.
-Disable Check Apps and Files.
+
+If not using Smart App Control, disable Check Apps and Files.
 
 # Edge Optional Features
 
-Go through `edge://settings/privacy` and disable all optional features.
+Go through `edge://settings/privacy` and disable all optional features as well as Smartscreen for Edge.
 
 # Widgets / Live Tiles 
 
-These make potentially unneeded connections back to Microsoft, but from what I've seen they do not send sensitive user data back. However, if you wish to disable them:
+These make potentially unneeded connections back to Microsoft, but from what I've seen they do not appear to send sensitive user data back. However, if you wish to disable them:
 
 **Computer Configuration > 	Windows Components > Widgets > AllowWidgets** should be set to **Disabled**.
 
@@ -115,13 +116,37 @@ Start menu shortcuts and preinstalled third party apps can be easily removed by 
 
 Microsoft Apps such as Cortana can be removed using the `winget` package manager.
 
-Do not download third party "debloater" tools.
+Do not download third party debloater tools.
 
-# Windows Defender stuff that isn't privacy related
+# Security Stuff
+
+- [ ] Make Sure everything is up to date! 
+- [ ] Keep Camera / Mic / Location off when not in use
+- [ ] Consider using a non admin user 
+- [ ] Make sure whatever exploit mitigations that are supported by the hardware are on, see Controlled Folder Access as well
+- [ ] Using VMs to run untrusted executables (Hyper V / MDAG / Windows Sandbox)
+- [ ] Use attack surface reduction rules to harden Office, disable VBAs.
+- [ ] Configure Bitlocker 
+
+# Keep Everything Updated
+
+Check your Windows Update settings page regularly, especially on the second Tuesday of each month, as Microsoft usually releases security updates then ("Patch Tuesday").
+
+Windows can also automatically update certain Microsoft products such as Office through windows update.
+
+Also check "Optional Updates" for driver and firmware updates. However, in some cases the drivers provided by Windows Update are old, and it is better to use the OEM tool to update drivers. This goes for AMD devices.  
+
+Winget can update some apps, but not those from the Microsoft Store, so you'll have to check things there separately.
+
+# Camera / Mic / Location
+
+Due to currently terrible permission control, not all apps can be denied the camera or mic permission. So keep the global toggle disabled when not in use, which should turn it off for legacy desktop apps as well. Note that apps with admin access can override this setting.
 
 # MDAG / Windows Sandbox
 
 # App Sandboxing (which in fairness is currently not in the best state)
+
+Due to the poor state of current desktop app sandboxing, be minimalistic and do not install unneeded apps. 
 
 
 
