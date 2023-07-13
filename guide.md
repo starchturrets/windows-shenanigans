@@ -12,7 +12,7 @@
 
 It is best not to login to a Microsoft Account on Windows. (Note: add explanations why!) On Windows 11 Pro it is possible to skip the requirement to login by clicking on the “Set up for work or school” option -> Sign-in Options -> Domain Join.
 
-Screenshots will be posted here when I get to testing in VMs.
+Screenshots will be posted here when I get to do more thorough testing in VMs.
 
 Enterprise also makes it easy to click past the login screen.
 
@@ -52,11 +52,37 @@ Based off what I've seen, these are the more relevant items:
 
 If you are on Pro, you cannot fully disable OS diagnostics. Opt out of optional diagnostics on first setup and do not attempt to download third party tools that claim to disable telemetry. 
 
+If on Enterprise, open the group policy editor and go to **Computer Configuration > Administrative Templates > Windows Components > Data Collection and Preview Builds.** 
+
+Double-click **Allow Telemetry (or Allow diagnostic data on Windows 11 and Windows Server 2022).**
+
+Select the "Send no Diagnostic Data" Option, then click OK to apply changes.
+
+
+# Windows Spotlight
+
+Windows Spotlight sends back similar hardware data to required diagnostics. As required diagnostics are sent anyways on Pro, this is not so much of a concern.
+
 If on Enterprise, 
+
+Enable the following Group Policy User Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off all Windows spotlight features.
+
+Enable the following Group Policy Computer Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off cloud optimized content.
+
+According to Microsoft docs, this must be done within **15 minutes of first install.**
 
 # Bing Start Menu
 
-# Windows Spotlight
+By default, the start menu search searches the web, which could leak your local file queries to Microsoft. According to documentation, the following is needed to disable Cortana and Search:
+
+Find the Cortana Group Policy objects under **Computer Configuration > Administrative Templates > Windows Components > Search.**
+
+- [ ] Allow Cortana should be **Disabled**
+- [ ] Allow search and Cortana to use location should be **Disabled**
+- [ ] Do not allow web search should be **Enabled**
+- [ ] Don't search the web or display web results in Search should be **Enabled**
+
+In addition, I've found that you also need to set **User Configuration > Administrative Templates > Windows Components > File Explorer > Turn off display of recent search entries in the File Explorer search box** to **Enabled.**
 
 # Defender / Smartscreen, hardening 
 
