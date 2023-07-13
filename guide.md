@@ -89,6 +89,8 @@ Find the Cortana Group Policy objects under **Computer Configuration > Administr
 
 In addition, I've found that you also need to set **User Configuration > Administrative Templates > Windows Components > File Explorer > Turn off display of recent search entries in the File Explorer search box** to **Enabled.**
 
+Note: given Microsoft's push for Windows Copilot I suspect Cortana will be sunsetted within the next several month or so, along with these group policies. Hopefully there will be a simple, generalized group policy to disable it when Copilot becomes widely available.
+
 # Defender / Smartscreen
 
 Go to **Windows Security > Virus and Threat Protection > Manage Settings > Automatic Sample Submission.**
@@ -111,13 +113,14 @@ In `edge://settings/privacy` disable the following:
 - [ ] Services > Use a web service to help resolve navigation errors
 - [ ] Services > Suggest similar sites when a website can't be found
 - [ ] Services > Save time and money with Shopping in Microsoft Edge
-- [ ] Services > Save time and money with Shopping in Microsoft Edge
 - [ ] Services > Get notified when creators you follow post new content
 - [ ] Services > Show opportunities to support causes and nonprofits you care about
 - [ ] Services > Get notifications of related things you can explore with Discover
 - [ ] Services > Let Microsoft Edge help keep your tabs organized
 
-Basically, turn off everything under the Services section.
+(Basically, turn off everything under the Services section.)
+
+Using the Bing sidebar is not very privacy friendly (especially since it can be granted privileged access to your web browsing activity), so it is best to disable it.
 
 Under `edge://settings/sidebar`, disable the following:
 - [ ] App and notification settings > Discover > Show Discover
@@ -132,7 +135,6 @@ In `edge://settings/languages` disable the following:
 - [ ] Use text prediction
 - [ ] Enable grammar and spellcheck assistance
 
-Go through `edge://settings/privacy` and disable all optional features as well as Smartscreen for Edge.
 
 # Widgets / Live Tiles 
 
@@ -150,13 +152,16 @@ There are several things to put up with on Windows:
 - Preinstalled third party apps such as Spotify
 - Microsoft apps that you don't like
 
-Manufacturer bloatware usually isn't too much of a problem if you're doing a clean install, though OEMs can and have abused WPBT to get around this.
+Manufacturer bloatware usually isn't too much of a problem if you're doing a clean install, though OEMs can and have abused WPBT as well as driver updates to get around this.
 
 Start menu shortcuts and preinstalled third party apps can be easily removed by right clicking and unpinning / uninstalling them.
 
 Microsoft Apps such as Cortana can be removed using the `winget` package manager.
 
-Do not download third party debloater tools.
+1. Open an elevated powershell window and type in `winget list`
+2. Copy the name of the package you wish to uninstall and type in `winget uninstall PACKAGE_NAME`
+
+Note that uninstalling Cortana does not remove the need to apply the above group policies regarding Cortana and Search. You also cannot uninstall Microsoft Edge.  Do not go overboard uninstalling system apps in case you break something, and *please*, do not download third party debloater tools.
 
 # Security Stuff
 
@@ -190,3 +195,15 @@ Due to currently terrible permission control, not all apps can be denied the cam
 
 
 
+
+# BlackLotus Revocations
+
+https://support.microsoft.com/en-us/topic/kb5025885-how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d
+
+1. Make sure your Windows install is fully up to date (has the July 11 2023 updates installed)
+2. Enter the following into an elevated command prompt: `reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Secureboot /v AvailableUpdates /t REG_DWORD /d 0x30 /f`
+3. Restart.
+4. Wait five minutes.
+5. Restart again.
+
+Event IDs 1035 and 276 should be logged under the Windows Event Viewer.
