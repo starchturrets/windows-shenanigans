@@ -89,7 +89,7 @@ Find the Cortana Group Policy objects under **Computer Configuration > Administr
 
 In addition, I've found that you also need to set **User Configuration > Administrative Templates > Windows Components > File Explorer > Turn off display of recent search entries in the File Explorer search box** to **Enabled.**
 
-Note: given Microsoft's push for Windows Copilot I suspect Cortana will be sunsetted within the next several month or so, along with these group policies. Hopefully there will be a simple, generalized group policy to disable it when Copilot becomes widely available.
+Note: given Microsoft's push for Windows Copilot I suspect Cortana will be sunsetted within the next several months or so, along with these group policies. Hopefully there will be a simple, generalized group policy to disable it when Copilot becomes widely available.
 
 # Defender / Smartscreen
 
@@ -142,6 +142,7 @@ These make potentially unneeded connections back to Microsoft, but from what I'v
 
 **Computer Configuration > 	Windows Components > Widgets > AllowWidgets** should be set to **Disabled**.
 
+The Windows Media Player uses Bing by default to auto fetch Music metadata. This can be disabled by opening the app, going to settings, and toggling off "Search for missing Album and Artist art online".
 
 # Debloating
 
@@ -167,7 +168,8 @@ Note that uninstalling Cortana does not remove the need to apply the above group
 
 - [ ] Make Sure everything is up to date! 
 - [ ] Keep Camera / Mic / Location off when not in use
-- [ ] Set UAC to the max, and consider using a non admin user 
+- [ ] Set UAC to the max, and consider using a non admin user
+- [ ] Use `winget` to manage apps
 - [ ] Make sure whatever exploit mitigations that are supported by the hardware are on, see Controlled Folder Access as well
 - [ ] Use VMs to run untrusted executables (Hyper V / MDAG / Windows Sandbox)
 - [ ] Use attack surface reduction rules to harden Office, disable VBA macros.
@@ -188,6 +190,21 @@ Winget can update some apps, but not those from the Microsoft Store, so you'll h
 # Camera / Mic / Location
 
 Due to currently terrible permission control, not all apps can be denied the camera or mic permission. So keep the global toggle disabled when not in use, which should turn it off for legacy desktop apps as well. Note that apps with admin access can override this setting.
+
+# App Management
+
+Rather than using a search engine to look for and download app - which is prone to being gamed by [malicious sites](https://www.bleepingcomputer.com/news/security/hackers-abuse-google-ads-to-spread-malware-in-legit-software/), it is preferable to use the `winget` package manager which comes preinstalled on Windows 11 by default. To look for a package, open up a terminal window and type in `winget search "Package Name"`. You can then verify the publisher (which is handy for Microsoft Store apps) by copying the application ID and running `winget show "application ID"`. 
+
+According to [this](https://github.com/microsoft/winget-cli/discussions/2534) winget packages do go through some amount of review before being added in:
+
+> I don't see where security risks would be an issue here because every installer goes through Dynamic Analysis (Virus Scan) in the Pipelines' VMs, and if there's a PUA or malware in the installer, it's immediately flagged by the pipelines. The PR is also manually validated by Moderators, in either VMs, or Bare Metal - so installers are always double checked to make sure that it isn't a malicious package intended to steal people's passwords or monitor what they're typing on their keyboard.
+Even if the pipelines cannot catch the malware issue, depending on the antivirus software someone has, all installers from WinGet are downloaded to %TEMP%\WinGet, except for .appx(bundle) and .msix(bundle), where your antivirus software will probably scan it before it's executed to install it onto your PC.
+
+While this is by no means a guarantee, this should reduce the chances of getting served outright malware.
+
+Occasionally an app will show up as being downloadable from either the Store or the publisher website. Currently there does not seem to be any major security difference between the two, so it is up to the user to decide which to install.  
+
+
 
 # MDAG / Windows Sandbox
 
