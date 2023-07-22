@@ -113,16 +113,20 @@ In `edge://settings/privacy` disable the following:
 - [ ] Security > Microsoft Defender SmartScreen
 - [ ] Security > Website typo protection
 - [ ] Security > Turn on site safety services to get more info about the sites you visit
+
+<details>
+ <summary>Turn off everything under the Services section.</summary>
+
 - [ ] Services > Use a web service to help resolve navigation errors
 - [ ] Services > Suggest similar sites when a website can't be found
 - [ ] Services > Save time and money with Shopping in Microsoft Edge
+- [ ] Show suggestions to follow creators in Microsoft Edge
 - [ ] Services > Get notified when creators you follow post new content
 - [ ] Services > Show opportunities to support causes and nonprofits you care about
 - [ ] Services > Get notifications of related things you can explore with Discover
 - [ ] Services > Let Microsoft Edge help keep your tabs organized
 
-(Basically, turn off everything under the Services section.)
-
+</details>
 Using the Bing sidebar is not very privacy friendly (especially since it can be granted privileged access to your web browsing activity), so it is best to disable it.
 
 Under `edge://settings/sidebar`, disable the following:
