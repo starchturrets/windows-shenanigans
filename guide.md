@@ -1,6 +1,7 @@
 # Configuring Windows 11 Pro/Enterprise 
 
 (Read the whole guide before going through with it please!)
+Disclaimer: I am not a security researcher, I simply read documentation, played around a bit with VMs, and talked to people in various privsec matrix channels. This is by no means comprehensive and/or a guarantee of privacy and security on Windows, as it is very much still a Work in Progress.
 
 # Things to note before installing: 
  
@@ -28,7 +29,9 @@ Smart App Control is a tradeoff between privacy and security. On the one hand, i
 
 > When either Microsoft Defender SmartScreen or Smart App Control checks a file, data about that file is sent to Microsoft, including the file name, a hash of the file’s contents, the download location, and the file’s digital certificates.
 
-It is up to you whether or not to use it. Also note that it's possible to craft a more restrictive allowlist policy than what Smart App Control has using WDAC, but this is more for advanced users.
+It is ultimately up to you whether or not to use it. I personally don't due to how inflexible its rules currently are - there's no way to whitelist an application/executable should it get blocked short of disabling Smart App Control entirely - and once disabled, it cannot be reenabled without reinstalling Windows.
+
+Also note that it's possible to craft a more restrictive allowlist policy than what Smart App Control has using AppLocker and/or WDAC (Smart App Control basically uses WDAC under the hood), but this is more for advanced users, and while I have a basic WDAC policy setup for myself, I still don't fully understand hardening it against bypasses.
 
 
 # Things that phone home to Microsoft
@@ -46,7 +49,7 @@ Based off what I've seen, these are the more relevant items:
 3. Bing Start Menu (Cortana and Search) 
 4. Edge Optional Features
 5. Certain aspects of Windows Defender (Smartscreen, Automatic Sample Submission)
-6. (Optional) Widgets and Live Tiles 
+6. (Optional) Widgets and Live Tiles, Windows Media Player 
 
 # OS Diagnostics / Windows Spotlight (Sends back hardware data, among other things)
 
@@ -136,7 +139,7 @@ In `edge://settings/languages` disable the following:
 - [ ] Enable grammar and spellcheck assistance
 
 
-# Widgets / Live Tiles 
+# Widgets / Live Tiles, Windows Media Player 
 
 These make potentially unneeded connections back to Microsoft, but from what I've seen they do not appear to send sensitive user data back. However, if you wish to disable them:
 
@@ -195,7 +198,7 @@ Due to currently terrible permission control, not all apps can be denied the cam
 
 Rather than using a search engine to look for and download app - which is prone to being gamed by [malicious sites](https://www.bleepingcomputer.com/news/security/hackers-abuse-google-ads-to-spread-malware-in-legit-software/), it is preferable to use the `winget` package manager which comes preinstalled on Windows 11 by default. To look for a package, open up a terminal window and type in `winget search "Package Name"`. You can then verify the publisher (which is handy for Microsoft Store apps) by copying the application ID and running `winget show "application ID"`. 
 
-According to [this](https://github.com/microsoft/winget-cli/discussions/2534) winget packages do go through some amount of review before being added in:
+According to [this](https://github.com/microsoft/winget-cli/discussions/2534) winget packages do go through some amount of manual review before being added in:
 
 > I don't see where security risks would be an issue here because every installer goes through Dynamic Analysis (Virus Scan) in the Pipelines' VMs, and if there's a PUA or malware in the installer, it's immediately flagged by the pipelines. The PR is also manually validated by Moderators, in either VMs, or Bare Metal - so installers are always double checked to make sure that it isn't a malicious package intended to steal people's passwords or monitor what they're typing on their keyboard.
 Even if the pipelines cannot catch the malware issue, depending on the antivirus software someone has, all installers from WinGet are downloaded to %TEMP%\WinGet, except for .appx(bundle) and .msix(bundle), where your antivirus software will probably scan it before it's executed to install it onto your PC.
@@ -204,6 +207,12 @@ While this is by no means a guarantee, this should reduce the chances of getting
 
 Occasionally an app will show up as being downloadable from either the Store or the publisher website. Currently there does not seem to be any major security difference between the two, so it is up to the user to decide which to install.  
 
+# Microsoft Office
+
+Unfortunately, unless you're on an Enterprise 365 Office subscription (unlikely) you will not be able to make use of MDAG like on Edge. That being said, there are still a few steps you can take to improve security on Office.
+
+- Disable VBA Macros.
+- Use Attack Surface Reduction rules
 
 
 # MDAG / Windows Sandbox
