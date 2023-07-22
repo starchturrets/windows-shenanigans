@@ -110,7 +110,7 @@ It is probably the best to also disable **Smartscreen for Microsoft Edge**, as i
 
 # Edge Optional Features
 
-By default, Edge has many features that could leak private data and browsing history:
+Using Edge is a trade off between privacy and security. By default, Edge has many features that could leak private data and browsing history. On the other hand, it does have legitimate security features such as MDAG and Enhanced Security Mode. It is up to you whether to use it or to just use another Browser such as Brave/Chrome/Firefox.
 
 In `edge://settings/privacy` disable the following: 
 - [ ] Search and service improvement > Help improve Microsoft products by sending the results from searches on the web
