@@ -92,7 +92,12 @@ Find the Cortana Group Policy objects under **Computer Configuration > Administr
 
 In addition, I've found that you also need to set **User Configuration > Administrative Templates > Windows Components > File Explorer > Turn off display of recent search entries in the File Explorer search box** to **Enabled.**
 
-Note: given Microsoft's push for Windows Copilot I suspect Cortana will be sunsetted within the next several months or so, along with these group policies. Hopefully there will be a simple, generalized group policy to disable it when Copilot becomes widely available.
+Note: look into seeing if just `winget uninstall Cortana` + the single group policy above will be enough to deal with Cortana + Search.
+
+~~Note: given Microsoft's push for Windows Copilot I suspect Cortana will be sunsetted within the next several months or so, along with these group policies. Hopefully there will be a simple, generalized group policy to disable it when Copilot becomes widely available.~~
+
+According to elevenforums, this will be the group policy to enable in order to kill copilot when it rolls out: Computer Configuration > Administrative Templates > Start Menu and Taskbar​ > Hide the Copilot button
+
 
 # Defender / Smartscreen
 
