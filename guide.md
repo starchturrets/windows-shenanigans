@@ -110,7 +110,7 @@ It is probably the best to also disable **Smartscreen for Microsoft Edge**, as i
 
 # Edge Optional Features
 
-Using Edge is a trade off between privacy and security. By default, Edge has many features that could leak private data and browsing history. On the other hand, it does have legitimate security features such as MDAG and Enhanced Security Mode. It is up to you whether to use it or to just use another Browser such as Brave/Chrome/Firefox.
+Using Edge is a trade off between privacy and security. By default, Edge has many features that can and have leaked private data and browsing history to Microsoft. On the other hand, it does have legitimate security features such as MDAG and Enhanced Security Mode. It is up to you whether to use it or to just use another Browser such as Brave/Chrome/Firefox.
 
 In `edge://settings/privacy` disable the following: 
 - [ ] Search and service improvement > Help improve Microsoft products by sending the results from searches on the web
@@ -202,6 +202,10 @@ Winget can update some apps, but not those from the Microsoft Store, so you'll h
 # Camera / Mic / Location
 
 Due to currently terrible permission control, not all apps can be denied the camera or mic permission. So keep the global toggle disabled when not in use, which should turn it off for legacy desktop apps as well. Note that apps with admin access can override this setting.
+
+# User Account Control
+
+Set UAC to the highest level, this will mitigate some bypasses. Even better, you can create and use a non admin user account to daily drive with, and only elevate into the admin account when absolutely needed.
 
 # App Management
 
