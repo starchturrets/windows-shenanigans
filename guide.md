@@ -122,7 +122,7 @@ In `edge://settings/privacy` disable the following:
 <details>
  <summary>Turn off everything under the Services section.</summary>
 
-- [ ] Services > Use a web service to help resolve navigation errors
+- [ ] Services > Use a web service to help resolve navigation errors (note: this only seems to be used for captive portals and isn't so harmful?)
 - [ ] Services > Suggest similar sites when a website can't be found
 - [ ] Services > Save time and money with Shopping in Microsoft Edge
 - [ ] Show suggestions to follow creators in Microsoft Edge
