@@ -218,18 +218,48 @@ Set UAC to the highest level, this will mitigate some bypasses. Even better, you
 
 Rather than using a search engine to look for and download app - which is prone to being gamed by [malicious sites](https://www.bleepingcomputer.com/news/security/hackers-abuse-google-ads-to-spread-malware-in-legit-software/), it is preferable to use the `winget` package manager which comes preinstalled on Windows 11 by default. To look for a package, open up a terminal window and type in `winget search "Package Name"`. You can then verify the publisher (which is handy for Microsoft Store apps) by copying the application ID and running `winget show "application ID"`. 
 
-According to [this](https://github.com/microsoft/winget-cli/discussions/2534) winget packages do go through some amount of manual review before being added in:
+According to [this](https://github.com/microsoft/winget-cli/discussions/2534) winget packages (community packages, the Store is larger and lets shady stuff slip through) do go through some amount of manual review before being added in:
 
 > I don't see where security risks would be an issue here because every installer goes through Dynamic Analysis (Virus Scan) in the Pipelines' VMs, and if there's a PUA or malware in the installer, it's immediately flagged by the pipelines. The PR is also manually validated by Moderators, in either VMs, or Bare Metal - so installers are always double checked to make sure that it isn't a malicious package intended to steal people's passwords or monitor what they're typing on their keyboard.
 Even if the pipelines cannot catch the malware issue, depending on the antivirus software someone has, all installers from WinGet are downloaded to %TEMP%\WinGet, except for .appx(bundle) and .msix(bundle), where your antivirus software will probably scan it before it's executed to install it onto your PC.
 
 While this is by no means a guarantee, this should reduce the chances of getting served outright malware.
 
-Occasionally an app will show up as being downloadable from either the Store or the publisher website. Currently there does not seem to be any major security difference between the two, so it is up to the user to decide which to install.  
+Occasionally an app will show up as being downloadable from either the Store or the publisher website. Currently there does not seem to be any major security difference between the two (aside from making WDAC Configuration somewhat harder), so it is up to the user to decide which to install.  
+
+Microsoft Store apps can be sandboxed (as UWP), however this is not enforced. Check the permissions page and make sure that an app does not have the "Use All System Resources" permission if you wish for it to be sandboxed.
 
 # Microsoft Office
 
 Unfortunately, unless you're on an Enterprise 365 Office subscription (unlikely) you will not be able to make use of MDAG like on Edge. That being said, there are still a few steps you can take to improve security on Office.
+
+https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction?view=o365-worldwide
+
+ASR rules can be deployed without a subscription and in some cases have mitigated the exploit of a CVE: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36884
+
+They can be found under: **Computer Configuration > Administrative Templates > Windows Components > Microsoft Defender Antivirus > Microsoft Defender Exploit Guard > Attack Surface Reduction Rules.**
+
+| ASR Rule                                                                                          | GUID                                   |
+|---------------------------------------------------------------------------------------------------|----------------------------------------|
+| Block abuse of exploited vulnerable signed drivers                                                | `56a863a9-875e-4185-98a7-b882c64b5ce5` |
+| Block Adobe Reader from creating child processes                                                  | `7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c` |
+| Block all Office applications from creating child processes                                       | `d4f940ab-401b-4efc-aadc-ad5f3c50688a` |
+| Block credential stealing from the Windows local security authority subsystem (lsass.exe)         | `9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2` |
+| Block executable content from email client and webmail                                            | `be9ba2d9-53ea-4cdc-84e5-9b1eeee46550` |
+| Block executable files from running unless they meet a prevalence, age, or trusted list criterion | `01443614-cd74-433a-b99e-2ecdc07bfc25` |
+| Block execution of potentially obfuscated scripts                                                 | `5beb7efe-fd9a-4556-801d-275e5ffc04cc` |
+| Block JavaScript or VBScript from launching downloaded executable content                         | `d3e037e1-3eb8-44c8-a917-57927947596d` |
+| Block Office applications from creating executable content                                        | `3b576869-a4ec-4529-8536-b80a7769e899` |
+| Block Office applications from injecting code into other processes                                | `75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84` |
+| Block Office communication application from creating child processes                              | `26190899-1602-49e8-8b27-eb1d0a1ce869` |
+| Block persistence through WMI event subscription                                                  | `e6db77e5-3df2-4cf1-b95a-636979351e5b` |
+| Block process creations originating from PSExec and WMI commands                                  | `d1e49aac-8f56-4280-b9ba-993a6d77406c` |
+| Block untrusted and unsigned processes that run from USB                                          | `b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4` |
+| Block Win32 API calls from Office macros                                                          | `92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b` |
+| Use advanced protection against ransomware                                                        | `c1db55ab-c21a-4637-bb3f-a12568109d35` |
+
+Activate it, and click the display status button. Then paste in the GUIDs of the ASR rules you wish to activate in the left column and 1 in the right column to activate them. You can get the GUIDs from here: https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference. It is possible that it could interfere with your workflow but I personally haven't noted any issue with just turning all of them on.
+
 
 - Disable VBA Macros.
 - Use Attack Surface Reduction rules
