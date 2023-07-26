@@ -190,6 +190,9 @@ Note that uninstalling Cortana does not remove the need to apply the above group
 - [ ] Set UAC to the max, and consider using a non admin user
 - [ ] Use `winget` to manage apps
 - [ ] Make sure whatever exploit mitigations that are supported by the hardware are on, see Controlled Folder Access as well
+- [ ] (Relatively Easy) Use AppLocker to deny executables from running in the Downloads folder
+- [ ] (Somewhat Advanced) Use a WDAC policy to mimic Smart App Control's functionality while adding a bit more flexibility
+- [ ] (Advanced) Run WDAC without the Intelligent Security Graph
 - [ ] Use VMs to run untrusted executables (Hyper V / MDAG / Windows Sandbox)
 - [ ] Use attack surface reduction rules to harden Office, disable VBA macros.
 - [ ] Configure Bitlocker
