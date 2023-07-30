@@ -232,6 +232,46 @@ Occasionally an app will show up as being downloadable from either the Store or 
 
 Microsoft Store apps can be sandboxed (as UWP), however this is not enforced. Check the permissions page and make sure that an app does not have the "Use All System Resources" permission if you wish for it to be sandboxed.
 
+# Application Control
+
+Note: this is based off of my limited testing on my own device, as well as Microsoft Documentation
+
+https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/
+
+Windows offers several methods to stop untrusted executables from running, such as AppLocker or Smart App Control / WDAC. Each of them have their own advantages and disadvantages, but they do help mitigate attacks such as those from clicking on disguised executables.  
+
+I have not tested AppLocker yet, so I will only talk about Smart App Control / WDAC.
+
+WDAC (Windows Defender Application Control) is what runs under the hood of Smart App Control, however SAC exposes far less configuration. SAC can be enabled on new installs by opening the Windows Security App and going to **App and Browser Control > Settings for Smart App Control** and selecting the Activated option.
+
+While this means it is dead simple, it is also a blunt all or nothing - if a dll critical to signal desktop or another similar app is blocked, there is no option to allowlist it, only turn it off entirely, and it cannot be reenabled without reinstalling the OS. So unless you restrict your usage to a few basic apps it is unlikely it will work well with you. 
+
+Another option is to create and apply a WDAC policy manually. Microsoft offers the [WDAC wizard](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/design/wdac-wizard) to simplify things, but it unfortunately still has a steep learning curve.
+
+The Wizard offers three base templates, with varying levels of trust:
+
+1. Default Windows Mode
+   - Windows OS Components
+   - Microsoft Store Applications
+   - Office 365, OneDrive, Teams
+   - WHQL Signed Kernel Drivers
+2. Allow Microsoft Mode
+   - Windows OS Components
+   - Microsoft Store Applications
+   - Office 365, OneDrive, Teams
+   - WHQL Signed Kernel Drivers
+   - All Microsoft signed applications (that is, apps such as PowerToys or sysinternals that are not included with Windows but are still from Microsoft)
+3. Signed And Reputable Mode
+   - Windows OS Components
+   - Microsoft Store Applications
+   - Office 365, OneDrive, Teams
+   - WHQL Signed Kernel Drivers
+   - All Microsoft signed applications
+   - Files with good reputation using ISG (Intelligent Security Graph, basically what is used in SAC to determine if an app is trustworthy without having it explicitly deny/allowlisted)
+
+There is a tradeoff between trust and usability. I would reccommend using the 3rd base template, as it offers the most usability while allowing you to allowlist falsely blocked files. Currently, I run a variant of the second base template with chrome, firefox, and powertoys allowed.
+
+
 # Microsoft Office
 
 Unfortunately, unless you're on an Enterprise 365 Office subscription (unlikely) you will not be able to make use of MDAG like on Edge. That being said, there are still a few steps you can take to improve security on Office.
@@ -268,7 +308,7 @@ Activate it, and click the display status button. Then paste in the GUIDs of the
 - Use Attack Surface Reduction rules
 
 
-# MDAG / Windows Sandbox
+# MDAG / Windows Sandbox for untrusted URLs / executables
 
 
 
