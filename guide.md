@@ -269,7 +269,7 @@ The Wizard offers three base templates, with varying levels of trust:
    - All Microsoft signed applications
    - Files with good reputation using ISG (Intelligent Security Graph, basically what is used in SAC to determine if an app is trustworthy without having it explicitly deny/allowlisted)
 
-There is a tradeoff between trust and usability. I would reccommend using the 3rd base template, as it offers the most usability while allowing you to allowlist falsely blocked files. Currently, I run a variant of the second base template with chrome, firefox, and powertoys allowed.
+There is a tradeoff between trust and usability. I would reccommend using the 3rd base template, as it offers the most usability (and the benefits of SAC) while allowing you to allowlist falsely blocked files. Currently, I run a variant of the second base template with chrome, firefox, and powertoys allowed.
 
 
 # Microsoft Office
