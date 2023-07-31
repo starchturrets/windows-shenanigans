@@ -161,6 +161,8 @@ These make potentially unneeded connections back to Microsoft, but from what I'v
 
 **Computer Configuration > 	Windows Components > Widgets > AllowWidgets** should be set to **Disabled**.
 
+Alternatively, Widgets can be completely uninstalled by doing `winget uninstall "Windows Web Experience Pack"` in an elevated PowerShell window. 
+
 The Windows Media Player uses Bing by default to auto fetch Music metadata. This can be disabled by opening the app, going to settings, and toggling off "Search for missing Album and Artist art online".
 
 # Debloating
