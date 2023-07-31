@@ -55,6 +55,8 @@ Based off what I've seen, these are the more relevant items:
 
 If you are on Pro, you cannot fully disable OS diagnostics. Opt out of optional diagnostics on first setup and do not attempt to download third party tools that claim to disable telemetry. Since you're sending hardware data anyways, it is most likely pointless to disable Spotlight on Pro edition.
 
+Note: it's likely possible to block `diagtrack.dll` with WDAC but I'll have to test that. 
+
 <details>
 
 <summary>If you are on Enterprise </summary>
