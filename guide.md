@@ -42,6 +42,8 @@ https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-window
 
 https://learn.microsoft.com/en-us/windows/privacy/manage-windows-11-endpoints
 
+Also, you can just auto apply the below group policies that turn off phone homey stuff with [LGPO](https://github.com/starchturrets/windows-shenanigans/tree/main/policies). 
+
 Based off what I've seen, these are the more relevant items:
 
 1. OS Diagnostics
