@@ -19,3 +19,9 @@ Since it is a pain to configure dozens of group policies manually, here is a way
 (Note that you have to run the second line for every new user account created.)
 
 7. Reboot
+
+There are three settings that are not set by this for various reasons: 
+
+- Disabling of smartscreen in Microsoft Edge settings (needs a domain joined device to apply).
+- Get Notifications of related things you can explore with Discover in Microsoft Edge settings (doesn't have a group policy available).
+- Disabling of Windows Media Player autofetching metadata (I forgot to include it).
