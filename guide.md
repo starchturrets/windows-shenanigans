@@ -196,7 +196,6 @@ Note that uninstalling Cortana does not remove the need to apply the above group
 - [ ] Set UAC to the max, and consider using a non admin user
 - [ ] Use `winget` to manage apps
 - [ ] Make sure whatever exploit mitigations that are supported by the hardware are on, see Controlled Folder Access as well
-- [ ] (Relatively Easy) Use AppLocker to deny executables from running in the Downloads folder
 - [ ] (Somewhat Advanced) Use a WDAC policy to mimic Smart App Control's functionality while adding a bit more flexibility
 - [ ] (Advanced) Run WDAC without the Intelligent Security Graph
 - [ ] Use VMs to run untrusted executables (Hyper V / MDAG / Windows Sandbox)
@@ -209,7 +208,7 @@ Note that uninstalling Cortana does not remove the need to apply the above group
 
 Check your Windows Update settings page regularly, especially on the second Tuesday of each month, as Microsoft usually releases security updates then ("Patch Tuesday").
 
-Windows can also automatically update certain Microsoft products such as Office through windows update.
+Windows can also automatically update certain Microsoft products such as Office through windows update, though in my experience this isn't perfect.
 
 Also check "Optional Updates" for driver and firmware updates. However, in some cases the drivers provided by Windows Update are old, and it is better to use the OEM tool to update drivers. This goes for AMD devices.  
 
@@ -237,6 +236,8 @@ While this is by no means a guarantee, this should reduce the chances of getting
 Occasionally an app will show up as being downloadable from either the Store or the publisher website. Currently there does not seem to be any major security difference between the two (aside from making WDAC Configuration somewhat harder), so it is up to the user to decide which to install.  
 
 Microsoft Store apps can be sandboxed (as UWP), however this is not enforced. Check the permissions page and make sure that an app does not have the "Use All System Resources" permission if you wish for it to be sandboxed.
+
+When possible, avoid running unsigned apps. 
 
 # Application Control
 
@@ -275,8 +276,7 @@ The Wizard offers three base templates, with varying levels of trust:
    - All Microsoft signed applications
    - Files with good reputation using ISG (Intelligent Security Graph, basically what is used in SAC to determine if an app is trustworthy without having it explicitly deny/allowlisted)
 
-There is a tradeoff between trust and usability. I would reccommend using the 3rd base template, as it offers the most usability (and the benefits of SAC) while allowing you to allowlist falsely blocked files. Currently, I run a variant of the second base template with chrome, firefox, and powertoys allowed.
-
+There is a tradeoff between trust and usability. I would reccommend using the 3rd base template, as it offers the most usability (and the benefits of SAC) while allowing you to allowlist falsely blocked files. Currently, I run a variant of the first base template with some apps (Chrome, Firefox, Powertoys, Tor Browser) allowlisted.
 
 # Microsoft Office
 
@@ -309,15 +309,14 @@ They can be found under: **Computer Configuration > Administrative Templates > W
 
 Activate it, and click the display status button. Then paste in the GUIDs of the ASR rules you wish to activate in the left column and 1 in the right column to activate them. You can get the GUIDs from here: https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference. It is possible that it could interfere with your workflow but I personally haven't noted any issue with just turning all of them on.
 
-
 - Disable VBA Macros.
 - Use Attack Surface Reduction rules
 
 
-# MDAG / Windows Sandbox for untrusted URLs / executables
+# Windows Sandbox for untrusted EXEs
 
-
-
+- Make sure you meet the prerequisites for installation: https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview#prerequisites
+- If so, you can enable it by going to Turn Windows Features on or off > Windows Sandbox. Select it, click ok, then restart the computer if prompted.
 
 
 
