@@ -11,14 +11,19 @@ Disclaimer: I am not a security researcher, I simply read documentation, played 
 
 # On Install:
 
-It is best not to login to a Microsoft Account on Windows. (Note: add explanations why!) On Windows 11 Pro it is possible to skip the requirement to login by clicking on the “Set up for work or school” option -> Sign-in Options -> Domain Join.
+It is best not to login to a Microsoft Account on Windows. This is because of all the sync stuff that is toggled on by default. While not impossible to control, it's an annoyance that's best avoided. In addition, according to [this study](https://web.archive.org/web/20230717045727/https://www.autoriteitpersoonsgegevens.nl/uploads/imported/public_version_dutch_dpa_informal_translation_summary_of_investigation_report.pdf), more device identifiers are sent with telemetry when logged into a Microsoft Account (see pages 5 through 7).
 
-Screenshots will be posted here when I get to do more thorough testing in VMs.
+On Windows 11 Pro and above it is possible to skip the requirement to login by clicking on the “Set up for work or school” option -> Sign-in Options -> Domain Join.
 
-Enterprise also makes it easy to click past the login screen.
+Go through the OOBE and opt out of everything:
 
-Opt out of all optional diagnostics / Inking and Typing / Location / Etc. 
-
+- [ ] Let Microsoft and apps use your location > No
+- [ ] Find my device > No
+- [ ] Send diagnostic data to Microsoft > Required only
+- [ ] Improve inking & typing > No
+- [ ] Get tailored experiences with diagnostic data > No
+- [ ] Let apps use advertising ID > No
+  
 # Smart App Control 
 
 Smart App Control is a tradeoff between privacy and security. On the one hand, it improves security by mitigating unsigned code from running while using reputation checks to make sure legitimate files are not blocked, on the other hand it needs to send file metadata to Microsoft in order to function. As the Microsoft Privacy Policy puts it: 
@@ -56,8 +61,6 @@ Based off what I've seen, these are the more relevant items:
 # OS Diagnostics / Windows Spotlight (Sends back hardware data, among other things)
 
 If you are on Pro, you cannot fully disable OS diagnostics. Opt out of optional diagnostics on first setup and do not attempt to download third party tools that claim to disable telemetry. Since you're sending hardware data anyways, it is most likely pointless to disable Spotlight on Pro edition.
-
-Note: it's likely possible to block `diagtrack.dll` with WDAC but I'll have to test that. 
 
 <details>
 
@@ -98,7 +101,7 @@ In addition, I've found that you also need to set **User Configuration > Adminis
 
 Note: look into seeing if just `winget uninstall Cortana` + the single group policy above will be enough to deal with Cortana + Search.
 
-~~Note: given Microsoft's push for Windows Copilot I suspect Cortana will be sunsetted within the next several months or so, along with these group policies. Hopefully there will be a simple, generalized group policy to disable it when Copilot becomes widely available.~~
+~~Note: given Microsoft's push for Windows Copilot I suspect Cortana will be sunsetted within the next several months or so, along with these group policies. Hopefully there will be a simple, generalized group policy to disable it when Copilot becomes widely available.~~ In current Windows Insiders Canary builds, Cortana can be simply uninstalled from the right click menu. Release notes also indicate that the bing search could possibly be spun off into its own (uninstallable) app.  
 
 According to elevenforums, this will be the group policy to enable in order to kill copilot when it rolls out: Computer Configuration > Administrative Templates > Start Menu and Taskbar​ > Hide the Copilot button
 
@@ -175,7 +178,6 @@ There are several things to put up with on Windows:
 
 - Manufacturer bloatware, such as preinstalled third party ~~malware~~ antiviruses
 - Start Menu shortcuts which are pinned by default
-- Preinstalled third party apps such as Spotify
 - Microsoft apps that you don't like
 
 Manufacturer bloatware usually isn't too much of a problem if you're doing a clean install, though OEMs can and have abused WPBT as well as driver updates to get around this.
@@ -238,6 +240,17 @@ Occasionally an app will show up as being downloadable from either the Store or 
 Microsoft Store apps can be sandboxed (as UWP), however this is not enforced. Check the permissions page and make sure that an app does not have the "Use All System Resources" permission if you wish for it to be sandboxed.
 
 When possible, avoid running unsigned apps. 
+
+# Exploit Mitigations in Windows Security
+
+Check the device security section. 
+
+- [ ] Memory Integrity
+- [ ] Kernel-mode Hardware-enforced Stack Protection
+- [ ] Memory Access Protection
+- [ ] Microsoft Defender Credential Guard
+- [ ] Microsoft Vulnerable Driver Blocklist
+
 
 # Application Control
 
