@@ -132,7 +132,7 @@ Note: it may seem counterproductive to disable security features, however Micros
 
 https://learn.microsoft.com/en-us/microsoft-edge/privacy-whitepaper/#smartscreen
 
-This is an extremely silly way to do it imo when Google safe browsing has shown it's possible to implement it in a safe way without blasting all the URLs you visit away to Microsoft.
+This is an extremely silly way to do it imo when Google safe browsing has shown it's possible to implement it in a safe way without blasting all the URLs you visit away to Microsoft. Testing with `mitmproxy` also indicates that with Edge smartscreen on, URLs are presently leaked to them.
 <details>
  <summary>Turn off everything under the Services section.</summary>
 
