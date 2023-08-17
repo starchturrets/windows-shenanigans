@@ -86,9 +86,9 @@ According to Microsoft docs, this must be done within **15 minutes of first inst
 </details>
 
 
-# Bing Start Menu
+# Bing Start Menu / Cortana / Copilot
 
-By default, the start menu search searches the web, which could leak your local file queries to Microsoft. According to documentation, the following is needed to disable Cortana and Search:
+By default, the start menu search searches the web, which could leak your local file queries to Microsoft. According to documentation, the following is needed to disable Cortana and Search on 22H2:
 
 Find the Cortana Group Policy objects under **Computer Configuration > Administrative Templates > Windows Components > Search.**
 
@@ -99,11 +99,11 @@ Find the Cortana Group Policy objects under **Computer Configuration > Administr
 
 In addition, I've found that you also need to set **User Configuration > Administrative Templates > Windows Components > File Explorer > Turn off display of recent search entries in the File Explorer search box** to **Enabled.**
 
-Note: look into seeing if just `winget uninstall Cortana` + the single group policy above will be enough to deal with Cortana + Search.
+On 23H2, this is somewhat simplified:
 
-~~Note: given Microsoft's push for Windows Copilot I suspect Cortana will be sunsetted within the next several months or so, along with these group policies. Hopefully there will be a simple, generalized group policy to disable it when Copilot becomes widely available.~~ In current Windows Insiders Canary builds, Cortana can be simply uninstalled from the right click menu. Release notes also indicate that the bing search could possibly be spun off into its own (uninstallable) app.  
+Uninstall Microsoft Bing and Cortana from **Settings > Apps > Installed Apps.** This should stop Bing from automatically loading in the start menu, but if you want to knock it out fully set the aforementioned file explorer group policy.  
 
-According to elevenforums, this will be the group policy to enable in order to kill copilot when it rolls out: Computer Configuration > Administrative Templates > Start Menu and Taskbar​ > Hide the Copilot button
+To knock out copilot, set **User Configuration > Administrative Templates > Windows Components​ > Hide the Copilot button** to Enabled.
 
 
 # Defender / Smartscreen
