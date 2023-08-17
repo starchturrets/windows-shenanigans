@@ -101,7 +101,7 @@ In addition, I've found that you also need to set **User Configuration > Adminis
 
 On 23H2, this is somewhat simplified:
 
-Uninstall Microsoft Bing and Cortana from **Settings > Apps > Installed Apps.** This should stop Bing from automatically loading in the start menu, but if you want to knock it out fully set the aforementioned file explorer group policy.  
+Uninstall Microsoft Bing and Cortana from **Settings > Apps > Installed Apps.** Then set the aforementioned file explorer group policy.  
 
 To knock out copilot, set **User Configuration > Administrative Templates > Windows Components​ > Hide the Copilot button** to Enabled.
 
