@@ -326,10 +326,46 @@ Activate it, and click the display status button. Then paste in the GUIDs of the
 - Use Attack Surface Reduction rules
 
 
-# Windows Sandbox for untrusted EXEs
+# Windows Sandbox for untrusted files
 
 - Make sure you meet the prerequisites for installation: https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview#prerequisites
 - If so, you can enable it by going to Turn Windows Features on or off > Windows Sandbox. Select it, click ok, then restart the computer if prompted.
+
+You can then use it to open PDFs and other document files you're not sure about.
+
+Windows Sandbox is more oriented towards being a temporary throwaway VM, and it does come with some caveats: 
+
+- Malware can detect it's running in a VM, and not do anything suspicious until it's on the host.
+- Malware can detect it's running in a VM, [and overwrite the clipboard with a malicious executable to get it onto the host.](https://github.com/fractureiser-investigation/fractureiser/blob/main/docs/tech.md#anti-sandbox-tricks)
+
+So, be careful when copy/pasting files out of it, and don't treat it as a guarantee that an executable isn't malware. 
+
+This is a bit more experimental, but it's possible to configure Windows Sandbox to auto install LibreOffice while passing through the Downloads folder:
+
+
+```
+<Configuration>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>C:\Users\Admin\Sandboxing\Office Apps\LibreOffice\</HostFolder>
+      <SandboxFolder>C:\Users\WDAGUtilityAccount\LibreOffice\</SandboxFolder>
+      <ReadOnly>True</ReadOnly>
+    </MappedFolder>
+    <MappedFolder>
+      <HostFolder>C:\Users\Admin\Downloads\</HostFolder>
+      <SandboxFolder>C:\Users\WDAGUtilityAccount\Downloads\</SandboxFolder>
+      <ReadOnly>False</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>msiexec.exe /I C:\Users\WDAGUtilityAccount\LibreOffice\LibreOffice_7.5.5_Win_x86-64.msi /quiet</Command>
+    <Command></Command>  
+</LogonCommand>
+<ProtectedClient>True</ProtectedClient>
+</Configuration>
+```
+
+
 
 
 
