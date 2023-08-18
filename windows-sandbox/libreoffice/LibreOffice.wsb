@@ -1,0 +1,19 @@
+<Configuration>
+  <MappedFolders>
+    <MappedFolder>
+      <HostFolder>C:\Users\Admin\Sandboxing\Office Apps\LibreOffice\</HostFolder>
+      <SandboxFolder>C:\Users\WDAGUtilityAccount\LibreOffice\</SandboxFolder>
+      <ReadOnly>True</ReadOnly>
+    </MappedFolder>
+    <MappedFolder>
+      <HostFolder>C:\Users\Admin\Downloads\</HostFolder>
+      <SandboxFolder>C:\Users\WDAGUtilityAccount\Downloads\</SandboxFolder>
+      <ReadOnly>False</ReadOnly>
+    </MappedFolder>
+  </MappedFolders>
+  <LogonCommand>
+    <Command>msiexec.exe /I C:\Users\WDAGUtilityAccount\LibreOffice\LibreOffice_7.5.5_Win_x86-64.msi /quiet</Command>
+    <Command></Command>  
+</LogonCommand>
+<ProtectedClient>True</ProtectedClient>
+</Configuration>
