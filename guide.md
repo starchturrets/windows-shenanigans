@@ -365,8 +365,7 @@ This is a bit more experimental, but it's possible to configure Windows Sandbox 
 </Configuration>
 ```
 
-
-
+While being a relatively simple `.wsb` file, it has the disadvantage of taking about a minute to install each time the sandbox instance is started.
 
 
 # BlackLotus Revocations
