@@ -1,4 +1,5 @@
 - LibreOffice msi is downloaded and stored under `C:\Users\Admin\Sandboxing\Office Apps\LibreOffice\` (you can put it anywhere you want but make sure to change the directory in the config file. Also, make sure it reflects whatever your username is.)
 - The directory is then shared with Windows Sandbox.
 - `msiexec.exe /I C:\Users\WDAGUtilityAccount\LibreOffice\LibreOffice_7.5.5_Win_x86-64.msi /quiet` auto installs the MSI, quietly.
-- `.wsb` files can be edited in notepad.
+- (`.wsb` files can be edited in notepad.)
+- It can then be placed on the desktop folder or opened from Windows Search.
