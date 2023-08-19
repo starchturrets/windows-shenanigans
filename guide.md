@@ -26,9 +26,9 @@ Go through the OOBE and opt out of everything:
 
 To stop Windows from pestering you to login to a Microsoft account, go to **System > Settings > Notifications > Additional Settings** and untick all the checkboxes there.
 
-- [] Show the Windows welcome experience after updates and when signed in to show what's new and suggested
-- [] Suggest ways to get the most out of Windows and finish setting up this device
-- [] Get tips and suggestions when using Windows
+- [ ] Show the Windows welcome experience after updates and when signed in to show what's new and suggested
+- [ ] Suggest ways to get the most out of Windows and finish setting up this device
+- [ ] Get tips and suggestions when using Windows
 # Smart App Control 
 
 Smart App Control is a tradeoff between privacy and security. On the one hand, it improves security by mitigating unsigned code from running while using reputation checks to make sure legitimate files are not blocked, on the other hand it needs to send file metadata to Microsoft in order to function. As the Microsoft Privacy Policy puts it: 
