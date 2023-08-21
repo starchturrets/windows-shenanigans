@@ -3,4 +3,4 @@ Just my notes on how to somewhat improve Windows 11 privacy and security (Withou
 
 Objective: to provide usable, actionable advice for not so advanced users.
 
-*on your host
+*on your host. Windows Sandbox doesn't count 😅
