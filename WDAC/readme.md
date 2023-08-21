@@ -2,6 +2,9 @@
 
 These are just my notes after overhauling the WDAC Policy I currently use. Very much a WIP and might well have mistakes in it.
 
+My scenario is similar to that outlined in https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/design/create-wdac-policy-for-fully-managed-devices
+
+
 Base template selected: Default Windows Mode, which trusts: 
 - Windows OS Components
 - Microsoft Store Applications
