@@ -255,11 +255,7 @@ Check the device security section.
 - [ ] Microsoft Vulnerable Driver Blocklist
 
 
-# Application Control with SAC and/or WDAC
-
-Note: this is based off of my limited testing on my own device and a VM or two, as well as Microsoft Documentation
-
-https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/
+# Smart App Control
 
 Windows offers several methods to stop untrusted executables from running, such as AppLocker or Smart App Control / WDAC. Each of them have their own advantages and disadvantages, but they do help mitigate attacks such as those from clicking on disguised executables.  
 
@@ -269,22 +265,14 @@ WDAC (Windows Defender Application Control) is what runs under the hood of Smart
 
 While this means it is dead simple, it is also a blunt all or nothing - if a dll critical to signal desktop or another similar app is blocked, there is no option to allowlist it, only turn it off entirely, and it cannot be reenabled without reinstalling the OS.
 
-Another option is to create and apply a WDAC policy manually. Microsoft offers the [WDAC wizard](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/design/wdac-wizard) to simplify things, but it unfortunately still has a steep learning curve.
-
-See [here](https://github.com/starchturrets/windows-shenanigans/tree/main/WDAC) for some notes on using WDAC (very much a rough draft!).
-
-SAC does do two things better than a custom WDAC policy: 
-
-1. [It does not "over authorize" files written by an installer as the default ISG does.](https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices#security-considerations
-)
-2. [SAC blocks dangerous filetypes such as lnks/ISOs downloaded from the Internet (with Mark of the web).](https://www.bleepingcomputer.com/news/microsoft/windows-11-smart-app-control-blocks-files-used-to-push-malware/)
-
 So, SAC is probably a good idea under the following conditions:
 
 - You do not use WSL (sorry, that gets blocked!)
+- You are not a programmer (generating lots of unsigned code doesn't play very well with it)
 - You primarily use apps from Microsoft Store/winget that are unlikely to be blocked
 - You are OK with Microsoft getting file metadata (see above)
 
+If you only use a few basic apps, I recommend using SAC unless it's incompatible with your workflow.
 
 # Microsoft Office
 
