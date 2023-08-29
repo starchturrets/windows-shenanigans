@@ -4,12 +4,30 @@ These are just my notes after overhauling the WDAC Policy I currently use. Very 
 
 My scenario is similar to that outlined in https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/design/create-wdac-policy-for-fully-managed-devices
 
+The Wizard offers three base templates, with varying levels of trust:
 
-Base template selected: Default Windows Mode, which trusts: 
-- Windows OS Components
-- Microsoft Store Applications
-- Office 365, OneDrive, Teams
-- WHQL Signed Kernel Drivers
+1. Default Windows Mode
+   - Windows OS Components
+   - Microsoft Store Applications
+   - Office 365, OneDrive, Teams
+   - WHQL Signed Kernel Drivers
+2. Allow Microsoft Mode
+   - Windows OS Components
+   - Microsoft Store Applications
+   - Office 365, OneDrive, Teams
+   - WHQL Signed Kernel Drivers
+   - All Microsoft signed applications (that is, apps such as PowerToys or sysinternals that are not included with Windows but are still from Microsoft)
+3. Signed And Reputable Mode
+   - Windows OS Components
+   - Microsoft Store Applications
+   - Office 365, OneDrive, Teams
+   - WHQL Signed Kernel Drivers
+   - All Microsoft signed applications
+   - Files with good reputation using ISG (Intelligent Security Graph, basically what is used in SAC to determine if an app is trustworthy without having it explicitly deny/allowlisted)
+
+There is a tradeoff between trust and usability. I would reccommend using the 3rd base template, as it offers the most usability (and the benefits of SAC) while allowing you to allowlist falsely blocked files.
+
+I personally selected the Default Windows Mode base template.
 
 This isn't perfect (Microsoft signed binaries can and have been abused to circumvent WDAC policies, as well as vulnerable drivers), but it's a good start. From testing on my own system (HP Pavilion Aero 13, Intel) nothing major seems to break with this template, but issues have been reported on AMD systems due to their wonky driver signing (note: add source!). I am also not sure how well this works with custom built PCs. Have your Bitlocker recovery key handy just in case.
 
