@@ -254,9 +254,11 @@ Check the device security section.
 - [ ] Microsoft Defender Credential Guard
 - [ ] Microsoft Vulnerable Driver Blocklist
 
-
-# Smart App Control
-
+<details>
+<summary>
+# Smart App Control (WUP)
+</summary>
+ 
 Windows offers several methods to stop untrusted executables from running, such as AppLocker or Smart App Control / WDAC. Each of them have their own advantages and disadvantages, but they do help mitigate attacks such as those from clicking on disguised executables.  
 
 I have not tested AppLocker yet, so I will only talk about Smart App Control / WDAC.
@@ -272,6 +274,7 @@ So, SAC is probably a good idea under the following conditions:
 - You primarily use apps from Microsoft Store/winget that are unlikely to be blocked
 - You are OK with Microsoft getting file metadata (see above)
 
+</details>
 If you only use a few basic apps, I recommend using SAC unless it's incompatible with your workflow.
 
 # Microsoft Office
