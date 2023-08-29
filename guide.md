@@ -29,20 +29,6 @@ To stop Windows from pestering you to login to a Microsoft account, go to **Syst
 - [ ] Show the Windows welcome experience after updates and when signed in to show what's new and suggested
 - [ ] Suggest ways to get the most out of Windows and finish setting up this device
 - [ ] Get tips and suggestions when using Windows
-# Smart App Control 
-
-Smart App Control is a tradeoff between privacy and security. On the one hand, it improves security by mitigating unsigned code from running while using reputation checks to make sure legitimate files are not blocked, on the other hand it needs to send file metadata to Microsoft in order to function. As the Microsoft Privacy Policy puts it: 
-
-> Where supported, Smart App Control helps check software that is installed and runs on your device to determine if it is malicious, potentially unwanted, or poses other threats to you and your device. **On a supported device, Smart App Control starts in evaluation mode and the data we collect for Microsoft Defender SmartScreen such as file name, a hash of the file’s contents, the download location, and the file’s digital certificates, is used to help determine whether your device is a good candidate to use Smart App Control for additional security protection.** 
-
-> ...
-
-> When either Microsoft Defender SmartScreen or Smart App Control checks a file, data about that file is sent to Microsoft, including the file name, a hash of the file’s contents, the download location, and the file’s digital certificates.
-
-It is ultimately up to you whether or not to use it. I personally don't due to how inflexible its rules currently are - there's no way to whitelist an application/executable should it get blocked short of disabling Smart App Control entirely - and once disabled, it cannot be reenabled without reinstalling Windows.
-
-Also note that it's possible to craft a more restrictive allowlist policy than what Smart App Control has using AppLocker and/or WDAC (Smart App Control basically uses WDAC under the hood), but this is more for advanced users, and while I have a basic WDAC policy setup for myself, I still don't fully understand hardening it against bypasses.
-
 
 # Things that phone home to Microsoft
 
@@ -60,7 +46,7 @@ Based off what I've seen, these are the more relevant items:
 2. Windows Spotlight
 3. Bing Start Menu (Cortana and Search) 
 4. Edge Optional Features
-5. Certain aspects of Windows Defender (Smartscreen, Automatic Sample Submission)
+5. Certain aspects of Windows Defender (Smartscreen/SAC, Automatic Sample Submission)
 6. (Optional) Widgets and Live Tiles, Windows Media Player 
 
 # OS Diagnostics / Windows Spotlight (Sends back hardware data, among other things)
@@ -115,6 +101,18 @@ To knock out copilot, set **User Configuration > Administrative Templates > Wind
 
 Go to **Windows Security > Virus and Threat Protection > Manage Settings > Automatic Sample Submission.**
 Click to disable it.
+
+# Smart App Control 
+
+Smart App Control (and Smartscreen in general) is a tradeoff between privacy and security. On the one hand, it improves security by using reputation checks to make sure legitimate files are not blocked while blocking malware, on the other hand it needs to send file metadata to Microsoft in order to function. As the Microsoft Privacy Policy puts it: 
+
+> Where supported, Smart App Control helps check software that is installed and runs on your device to determine if it is malicious, potentially unwanted, or poses other threats to you and your device. **On a supported device, Smart App Control starts in evaluation mode and the data we collect for Microsoft Defender SmartScreen such as file name, a hash of the file’s contents, the download location, and the file’s digital certificates, is used to help determine whether your device is a good candidate to use Smart App Control for additional security protection.** 
+
+> ...
+
+> When either Microsoft Defender SmartScreen or Smart App Control checks a file, data about that file is sent to Microsoft, including the file name, a hash of the file’s contents, the download location, and the file’s digital certificates.
+
+It is ultimately up to you whether or not to use it (more on that below).
 
 If you have chosen to not use Smart App Control, go to **Windows Security > App and Browser Control > Check Apps and Files** and disable it.
 
@@ -257,9 +255,9 @@ Check the device security section.
 - [ ] Microsoft Vulnerable Driver Blocklist
 
 
-# Application Control
+# Application Control with SAC and/or WDAC
 
-Note: this is based off of my limited testing on my own device, as well as Microsoft Documentation
+Note: this is based off of my limited testing on my own device and a VM or two, as well as Microsoft Documentation
 
 https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/
 
@@ -269,32 +267,21 @@ I have not tested AppLocker yet, so I will only talk about Smart App Control / W
 
 WDAC (Windows Defender Application Control) is what runs under the hood of Smart App Control, however SAC exposes far less configuration. SAC can be enabled on new installs by opening the Windows Security App and going to **App and Browser Control > Settings for Smart App Control** and selecting the Activated option.
 
-While this means it is dead simple, it is also a blunt all or nothing - if a dll critical to signal desktop or another similar app is blocked, there is no option to allowlist it, only turn it off entirely, and it cannot be reenabled without reinstalling the OS. So unless you restrict your usage to a few basic apps it is unlikely it will work well with you. 
+While this means it is dead simple, it is also a blunt all or nothing - if a dll critical to signal desktop or another similar app is blocked, there is no option to allowlist it, only turn it off entirely, and it cannot be reenabled without reinstalling the OS.
+
+Also note that it's possible to craft a more customizable allowlist policy than what Smart App Control has using AppLocker and/or WDAC (Smart App Control basically uses WDAC under the hood), but this is more for advanced users, and while I have a basic WDAC policy setup for myself, I still don't fully understand hardening it against bypasses.
 
 Another option is to create and apply a WDAC policy manually. Microsoft offers the [WDAC wizard](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/design/wdac-wizard) to simplify things, but it unfortunately still has a steep learning curve.
 
-The Wizard offers three base templates, with varying levels of trust:
+See [here](https://github.com/starchturrets/windows-shenanigans/tree/main/WDAC) for some notes on using WDAC (very much a rough draft!).
 
-1. Default Windows Mode
-   - Windows OS Components
-   - Microsoft Store Applications
-   - Office 365, OneDrive, Teams
-   - WHQL Signed Kernel Drivers
-2. Allow Microsoft Mode
-   - Windows OS Components
-   - Microsoft Store Applications
-   - Office 365, OneDrive, Teams
-   - WHQL Signed Kernel Drivers
-   - All Microsoft signed applications (that is, apps such as PowerToys or sysinternals that are not included with Windows but are still from Microsoft)
-3. Signed And Reputable Mode
-   - Windows OS Components
-   - Microsoft Store Applications
-   - Office 365, OneDrive, Teams
-   - WHQL Signed Kernel Drivers
-   - All Microsoft signed applications
-   - Files with good reputation using ISG (Intelligent Security Graph, basically what is used in SAC to determine if an app is trustworthy without having it explicitly deny/allowlisted)
+SAC does do two things better than a custom WDAC policy: 
 
-There is a tradeoff between trust and usability. I would reccommend using the 3rd base template, as it offers the most usability (and the benefits of SAC) while allowing you to allowlist falsely blocked files. Currently, I run a variant of the first base template with some apps (Chrome, Firefox, Powertoys, Tor Browser) allowlisted.
+1. [It does not "over authorize" files written by an installer as the default ISG does.](https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices#security-considerations
+)
+2. [SAC blocks dangerous filetypes such as lnks/ISOs downloaded from the Internet (with Mark of the web).](https://www.bleepingcomputer.com/news/microsoft/windows-11-smart-app-control-blocks-files-used-to-push-malware/)
+
+So, I would recommend using Smart App Control unless it interferes with your workflow significantly.
 
 # Microsoft Office
 
