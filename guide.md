@@ -256,7 +256,7 @@ Check the device security section.
 
 <details>
 <summary>
-# Smart App Control (WUP)
+Smart App Control (WIP)
 </summary>
  
 Windows offers several methods to stop untrusted executables from running, such as AppLocker or Smart App Control / WDAC. Each of them have their own advantages and disadvantages, but they do help mitigate attacks such as those from clicking on disguised executables.  
