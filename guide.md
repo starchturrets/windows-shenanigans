@@ -274,8 +274,8 @@ So, SAC is probably a good idea under the following conditions:
 - You primarily use apps from Microsoft Store/winget that are unlikely to be blocked
 - You are OK with Microsoft getting file metadata (see above)
 
-</details>
 If you only use a few basic apps, I recommend using SAC unless it's incompatible with your workflow.
+</details>
 
 # Microsoft Office
 
