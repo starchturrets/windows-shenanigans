@@ -269,8 +269,6 @@ WDAC (Windows Defender Application Control) is what runs under the hood of Smart
 
 While this means it is dead simple, it is also a blunt all or nothing - if a dll critical to signal desktop or another similar app is blocked, there is no option to allowlist it, only turn it off entirely, and it cannot be reenabled without reinstalling the OS.
 
-Also note that it's possible to craft a more customizable allowlist policy than what Smart App Control has using AppLocker and/or WDAC (Smart App Control basically uses WDAC under the hood), but this is more for advanced users, and while I have a basic WDAC policy setup for myself, I still don't fully understand hardening it against bypasses.
-
 Another option is to create and apply a WDAC policy manually. Microsoft offers the [WDAC wizard](https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/design/wdac-wizard) to simplify things, but it unfortunately still has a steep learning curve.
 
 See [here](https://github.com/starchturrets/windows-shenanigans/tree/main/WDAC) for some notes on using WDAC (very much a rough draft!).
@@ -281,7 +279,12 @@ SAC does do two things better than a custom WDAC policy:
 )
 2. [SAC blocks dangerous filetypes such as lnks/ISOs downloaded from the Internet (with Mark of the web).](https://www.bleepingcomputer.com/news/microsoft/windows-11-smart-app-control-blocks-files-used-to-push-malware/)
 
-So, I would recommend using Smart App Control unless it interferes with your workflow significantly.
+So, SAC is probably a good idea under the following conditions:
+
+- You do not use WSL (sorry, that gets blocked!)
+- You primarily use apps from Microsoft Store/winget that are unlikely to be blocked
+- You are OK with Microsoft getting file metadata (see above)
+
 
 # Microsoft Office
 
