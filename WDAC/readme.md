@@ -83,7 +83,7 @@ https://learn.microsoft.com/en-us/powershell/module/configci/new-cipolicy?view=w
 
 Open up the generated xml in notepad and remove the audit mode rule.
 
-Once you have done this for all the programs you wish to allowlist, you can then merge them all in the WDAC wizard. In my case I had to manually edit the merged policy and reenable the HVCI option for some reason.
+Once you have done this for all the programs you wish to allowlist, you can then merge them all in the WDAC wizard. In my case I had to manually edit the merged policy and reenable the HVCI and Disable Flight Signing options for some reason.
 
 You can apply the policy by opening an elevated powershell, navigating to the directory where it's stored, and running `CiTool.exe --update-policy ".\{GUID}.cip"` (tab autocomplete is very helpful for this).
 
