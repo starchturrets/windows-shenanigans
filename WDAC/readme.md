@@ -62,6 +62,7 @@ Don't apply it just yet, as you also need to generate policies for your third pa
 - Firefox
 - Powertoys
 - Tor Browser
+- Powershell 7
 
 While it is possible to use the wizard and manually add rules from the event log, this is a pain in my experience. It is also relatively easy to create filepath rules, but this is a potential risk should an attacker be able to drop a malicious executable into an allowlisted directory. I have had good results finding the directory where the program is installed - right click and check the properties of the start menu shortcut to see where the executable is - opening it up in an elevated Powershell, and running 
 
@@ -75,7 +76,7 @@ https://learn.microsoft.com/en-us/windows/security/application-security/applicat
 https://learn.microsoft.com/en-us/powershell/module/configci/new-cipolicy?view=windowsserver2022-ps
 
 - FilePublisher trusts specific files from the specified publisher, with a version at or above the specified version number.
-- Since companies are not the best about consistently signing files, fallback to hash rules (these will be invalidated after an update, regenerate your rules afterwards). Depending on the app, you may not need to do this. Firefox for example doesn't appear to need a lot of hash rules and upgrading in place does not require a new policy in my experience.
+- Since companies are not the best about consistently signing files, fallback to hash rules (these will be invalidated after an update, regenerate your rules afterwards). Depending on the app, you may not need to do this. Firefox for example doesn't appear to need a lot of hash rules and upgrading in place does not require a new policy in my experience. Tor Browser on the other hand has a lot of unsigned files, and is heavily dependent on hash rules.
 - ScanPath is the directory to be scanned.
 - UserPEs means that the generated policy is for userspace executables, not drivers.
 - Filepath determines where the generated policy will be placed.
