@@ -53,7 +53,9 @@ After clicking next, toggle the following options:
 - Require EV Signers
 - Audit mode off
 
-On the next screen, you can add custom rules yourself. I recommend blocking cmd.exe by hash (as well as turning it off in GPO) as .bat/.cmd scripts are not restricted like powershell scripts. (executables a .bat/.cmd script attempts to call will still be restricted however). The next button will then generate the policy as well as the binary (which should be a `.cip` file).
+If you are on a system you are unsure will function properly with WDAC, enable the Boot Audit on Failure option.
+
+On the next screen, you can add custom rules yourself. I recommend blocking cmd.exe (can be found in `C:\Windows\System32` as well as `C:\Windows\SysWow64` by hash as .bat/.cmd scripts are not restricted like powershell scripts. (executables a .bat/.cmd script attempts to call will still be restricted however). The next button will then generate the policy as well as the binary (which should be a `.cip` file). In my experience if converting a policy outputs a `SiPolicy.p7b` file, something has gone wrong.
 
 Don't apply it just yet, as you also need to generate policies for your third party applications. In my case, these were the programs that weren't already trusted by the base policy:
 
@@ -66,13 +68,14 @@ While it is possible to use the wizard and manually add rules from the event log
 ```
 New-CIPolicy -Level FilePublisher -Fallback Hash -UserPEs -ScanPath .\ -FilePath C:\Users\Username\Documents\app.xml
 ```
-This will generate a new supplemental policy that you can merge with your base policy. 
+This will generate a new supplemental policy that you can merge with your base policy. If you get the error `An item with the same key has already been added.
+`, simply run the command again.
 
 https://learn.microsoft.com/en-us/windows/security/application-security/application-control/windows-defender-application-control/design/select-types-of-rules-to-create
 https://learn.microsoft.com/en-us/powershell/module/configci/new-cipolicy?view=windowsserver2022-ps
 
 - FilePublisher trusts specific files from the specified publisher, with a version at or above the specified version number.
-- Since companies are not the best about consistently signing files, fallback to hash rules (these will be invalidated after an update, regenerate your rules afterwards).
+- Since companies are not the best about consistently signing files, fallback to hash rules (these will be invalidated after an update, regenerate your rules afterwards). Depending on the app, you may not need to do this. Firefox for example doesn't appear to need a lot of hash rules and upgrading in place does not require a new policy in my experience.
 - ScanPath is the directory to be scanned.
 - UserPEs means that the generated policy is for userspace executables, not drivers.
 - Filepath determines where the generated policy will be placed.
