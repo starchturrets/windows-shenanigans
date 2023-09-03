@@ -86,6 +86,8 @@ Once you have done this for all the programs you wish to allowlist, you can then
 
 You can apply the policy by opening an elevated powershell, navigating to the directory where it's stored, and running `CiTool.exe --update-policy ".\{GUID}.cip"` (tab autocomplete is very helpful for this).
 
-You can then reboot to enforce changes.
+To deactivate a policy (such as when running `winget upgrade --all`)  run `CiTool.exe --remove-policy "{GUID}"` in an elevated Powershell. You can then reboot to enforce changes.
 
-To deactivate a policy (such as when running `winget upgrade --all`)  run `CiTool.exe --remove-policy "{GUID}"` in an elevated Powershell.
+If you want to temporarily turn a policy off without rebooting, use the Wizard to place it in audit mode and run `CiTool.exe --update-policy ".\{GUID}.cip"` again.
+
+
