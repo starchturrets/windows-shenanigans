@@ -185,9 +185,9 @@ There are several things to put up with on Windows:
 
 Manufacturer bloatware usually isn't too much of a problem if you're doing a clean install, though OEMs can and have abused WPBT as well as driver updates to get around this.
 
-Windows Plug and Play auto installers (which on top of being potential bloat has led to privilege escalation bugs in the past) can be disabled by setting: 
+Windows Plug and Play auto installers (which on top of being potential bloat have led to privilege escalation bugs in the past) can be disabled by setting: 
 
-**Computer Configuration > Administrative Templates > System > Device Installation > Prevent device metadata retrieval from the Internet** to **Disabled**.
+**Computer Configuration > Administrative Templates > System > Device Installation > Prevent device metadata retrieval from the Internet** to **Enabled**.
 
 Start menu shortcuts and preinstalled third party apps can be easily removed by right clicking and unpinning / uninstalling them.
 
