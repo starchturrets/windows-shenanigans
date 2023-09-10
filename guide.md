@@ -357,6 +357,15 @@ This is a bit more experimental, but it's possible to configure Windows Sandbox 
 
 While being a relatively simple `.wsb` file, it has the disadvantage of taking about a minute to install each time the sandbox instance is started.
 
+# Bitlocker
+
+By default, bitlocker is only setup to protect against "casual" physical access, this is likely enough for most people's threat model. However if you wish for extra security you can set it up to use both TPM + PIN and disable sleep.
+
+Bitlocker also works with secure boot using PCR binding - it will only release the decryption key if certain conditions are met.
+
+WIP
+
+
 
 # BlackLotus Revocations
 
