@@ -312,8 +312,19 @@ They can be found under: **Computer Configuration > Administrative Templates > W
 
 Activate it, and click the display status button. Then paste in the GUIDs of the ASR rules you wish to activate in the left column and 1 in the right column to activate them. You can get the GUIDs from here: https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference. It is possible that it could interfere with your workflow but I personally haven't noted any issue with just turning all of them on.
 
-- Disable VBA Macros.
-- Use Attack Surface Reduction rules
+In addition, you can apply the Microsoft 365 Security baselines for Enterprise. While tailored for Enterprise Office installs, many policies (such as the ones regarding macro signing) can also apply to others such as LTSC 2021 (based off of my testing).
+
+The baseline can be downloaded from here: https://www.microsoft.com/en-us/download/details.aspx?id=55319. Make sure to select `LGPO.zip` as well. After unzipping both files, make sure that `LGPO.exe` is in the `\Scripts\Tools` subdirectory. You can then open an admin Powershell in the `\Scripts` subdirectory and run:
+
+```
+ powershell.exe -ExecutionPolicy unrestricted .\Baseline-LocalInstall.ps1
+```
+
+(or `pwsh.exe`, depending on what you have installed).
+
+After running, reboot.
+
+Administrative templates (should you wish to override a setting from the group policy editor or have them show up in your GPReport) can be downloaded from here: https://www.microsoft.com/en-us/download/details.aspx?id=49030.
 
 
 # Windows Sandbox for untrusted files
