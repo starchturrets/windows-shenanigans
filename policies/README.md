@@ -16,7 +16,7 @@ Since it is a pain to configure dozens of group policies manually, here is a way
     .\LGPO.exe /m .\machine.pol
     .\LGPO.exe /u .\user.pol
 ```
-(Note that you have to run the second line on every new user account created.)
+~~(Note that you have to run the second line on every new user account created.)~~ From what I've seen, user configuration policies also apply to new users created.
 
 7. Reboot
 
