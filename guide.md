@@ -49,7 +49,7 @@ Based off what I've seen, these are the more relevant items:
 5. Certain aspects of Windows Defender (Smartscreen/SAC, Automatic Sample Submission)
 6. (Optional) Widgets and Live Tiles, Windows Media Player 
 
-# OS Diagnostics / Windows Spotlight (Sends back hardware data, among other things)
+# OS Diagnostics (Sends back hardware data, among other things)
 
 If you are on Pro, you cannot fully disable OS diagnostics. Opt out of optional diagnostics on first setup and do not attempt to download third party tools that claim to disable telemetry. Since you're sending hardware data anyways, it is most likely pointless to disable Spotlight on Pro edition.
 
@@ -63,6 +63,7 @@ Double-click **Allow Telemetry (or Allow diagnostic data on Windows 11 and Windo
 
 Select the "Send no Diagnostic Data" Option, then click OK to apply changes.
 
+</details>
 
 ## Windows Spotlight
 
@@ -73,8 +74,6 @@ Windows Spotlight sends back similar hardware data to required diagnostics. To t
 - [ ] Enable the following Group Policy Computer Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off cloud optimized content.
 
 According to Microsoft docs, this must be done within **15 minutes of first install.**
-
-</details>
 
 
 # Bing Start Menu / Cortana / Copilot
