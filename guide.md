@@ -51,7 +51,7 @@ Based off what I've seen, these are the more relevant items:
 
 # OS Diagnostics (Sends back hardware data, among other things)
 
-If you are on Pro, you cannot fully disable OS diagnostics. Opt out of optional diagnostics on first setup and do not attempt to download third party tools that claim to disable telemetry. Since you're sending hardware data anyways, it is most likely pointless to disable Spotlight on Pro edition.
+If you are on Pro, you cannot fully disable OS diagnostics. Opt out of optional diagnostics on first setup and do not attempt to download third party tools that claim to disable telemetry.
 
 <details>
 
