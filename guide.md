@@ -93,7 +93,7 @@ On 23H2, this is somewhat simplified:
 
 Uninstall Microsoft Bing and Cortana from **Settings > Apps > Installed Apps.** Then set the aforementioned file explorer group policy.  
 
-To knock out copilot, set **User Configuration > Administrative Templates > Windows Components > Windows Copilot​ > Enable windows copilot entrypoints to allow windows copilot** to Disabled.
+To knock out copilot, set **User Configuration > Administrative Templates > Windows Components > Windows Copilot​ > Turn off Windows Copilot** to **Enabled**.
 
 
 # Defender / Smartscreen
