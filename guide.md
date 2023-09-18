@@ -6,7 +6,7 @@ Disclaimer: I am not a security researcher, I simply read documentation, played 
 # Things to note before installing: 
  
 - [ ] Does your device officially support Windows 11? Can Secure Boot and TPM be enabled in the firmware settings? CSM legacy boot mode should also be disabled. If not, do not attempt to bypass the hardware requirements, which provide much of the benefits of Windows 11 by allowing certain security features to be toggled on by default. If you're on an unsupported device and cannot upgrade, consider a Linux distro. 
-- [ ] If you're not planning on dualbooting or running Linux, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will improve boot security because instead of trusting hundreds of bootloaders you will only be trusting Windows (and your OEM) certificates.
+- [ ] If you're not planning on dualbooting or running Linux, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will somewhat improve boot security because instead of trusting hundreds of bootloaders you will only be trusting Windows (and your OEM) certificates.
 - [ ] Does your OEM/Motherboard manufacturer provide you with bloatware delivered through the WPBT? There may be an option in the firmware to disable it.
 
 # On Install:
@@ -323,7 +323,7 @@ The baseline can be downloaded from here: https://www.microsoft.com/en-us/downlo
 
 After running, reboot.
 
-Administrative templates (should you wish to override a setting from the group policy editor or have them show up in your GPReport) can be downloaded from here: https://www.microsoft.com/en-us/download/details.aspx?id=49030.
+Administrative templates (should you wish to override a setting from the group policy editor or have them show up in your GPReport) can be downloaded from here: https://www.microsoft.com/en-us/download/details.aspx?id=49030. 
 
 
 # Windows Sandbox for untrusted files
@@ -369,12 +369,15 @@ While being a relatively simple `.wsb` file, it has the disadvantage of taking a
 
 # Bitlocker
 
-By default, bitlocker is only setup to protect against "casual" physical access, this is likely enough for most people's threat model. However if you wish for extra security you can set it up to use both TPM + PIN and disable sleep.
+https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/bitlocker-countermeasures
 
-Bitlocker also works with secure boot using PCR binding - it will only release the decryption key if certain conditions are met.
+By default, bitlocker is only setup to protect against "casual" physical access, this is likely enough for most people's threat model (tampering is most likely irrelevant if a thief steals your device to wipe it and resell it, your data would still be protected). 
 
-WIP
+So, turning on bitlocker from the settings menu should be enough. 
 
+Go to **Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Choose drive encryption method and cipher strength** and set it to XTS-AES 256.
+
+However, there have been attacks against bitlocker's TPM authentication, and it is by no means perfect. Should you wish to go the extra mile and deter against more than the "casual" physical attacker, you will have to take the following measures:  
 
 
 # BlackLotus Revocations
