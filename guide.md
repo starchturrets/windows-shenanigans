@@ -257,7 +257,7 @@ Check the device security section.
 - [ ] Microsoft Defender Credential Guard
 - [ ] Microsoft Vulnerable Driver Blocklist
 
-Smart App Control
+# Smart App Control
  
 Windows offers several methods to stop untrusted executables from running, such as AppLocker or Smart App Control / WDAC. Each of them have their own advantages and disadvantages, but they do help mitigate attacks such as those from clicking on disguised executables.  
 
