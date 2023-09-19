@@ -257,14 +257,9 @@ Check the device security section.
 - [ ] Microsoft Defender Credential Guard
 - [ ] Microsoft Vulnerable Driver Blocklist
 
-<details>
-<summary>
-Smart App Control (WIP)
-</summary>
+Smart App Control
  
 Windows offers several methods to stop untrusted executables from running, such as AppLocker or Smart App Control / WDAC. Each of them have their own advantages and disadvantages, but they do help mitigate attacks such as those from clicking on disguised executables.  
-
-I have not tested AppLocker yet, so I will only talk about Smart App Control / WDAC.
 
 WDAC (Windows Defender Application Control) is what runs under the hood of Smart App Control, however SAC exposes far less configuration. SAC can be enabled on new installs by opening the Windows Security App and going to **App and Browser Control > Settings for Smart App Control** and selecting the Activated option.
 
@@ -278,7 +273,13 @@ So, SAC is probably a good idea under the following conditions:
 - You are OK with Microsoft getting file metadata (see above)
 
 If you only use a few basic apps, I recommend using SAC unless it's incompatible with your workflow.
-</details>
+
+While I do manage my own WDAC policy manually, it is somewhat labor intensive (and also a WIP), so if you wish to learn more about WDAC, consider the resources provided by HotCakeX based off of Microsoft documentation: 
+
+https://github.com/HotCakeX/Harden-Windows-Security/wiki/Introduction
+
+https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDACConfig
+
 
 # Microsoft Office
 
