@@ -135,19 +135,10 @@ Note: it may seem counterproductive to disable security features, however Micros
 https://learn.microsoft.com/en-us/microsoft-edge/privacy-whitepaper/#smartscreen
 
 This is an extremely silly way to do it imo when Google safe browsing has shown it's possible to implement it in a safe way without blasting all the URLs you visit away to Microsoft. Testing with `mitmproxy` also indicates that with Edge smartscreen on, URLs are presently leaked to them.
-<details>
- <summary>Turn off everything under the Services section.</summary>
 
-- [ ] Services > Use a web service to help resolve navigation errors (note: this only seems to be used for captive portals and isn't so harmful?)
-- [ ] Services > Suggest similar sites when a website can't be found
-- [ ] Services > Save time and money with Shopping in Microsoft Edge
-- [ ] Show suggestions to follow creators in Microsoft Edge
-- [ ] Services > Get notified when creators you follow post new content
-- [ ] Services > Show opportunities to support causes and nonprofits you care about
-- [ ] Services > Get notifications of related things you can explore with Discover
-- [ ] Services > Let Microsoft Edge help keep your tabs organized
+ Turn off **everything** under the Services section, and check it every update. They have been found to leak data multiple times. The only thing that might be ok is Services > Use a web service to help resolve navigation errors, which only seems to be used for captive portals.
 
-</details>
+
 Using the Bing sidebar is not very privacy friendly (especially since it can be granted privileged access to your web browsing activity), so it is best to disable it.
 
 Under `edge://settings/sidebar`, disable the following:
