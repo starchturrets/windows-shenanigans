@@ -246,13 +246,25 @@ When possible, avoid running unsigned apps.
 
 # Exploit Mitigations in Windows Security
 
-Check the device security section. 
+https://support.microsoft.com/en-us/windows/device-protection-in-windows-security-afa11526-de57-b1c5-599f-3a4c6a61c5e2
 
-- [ ] Memory Integrity
-- [ ] Kernel-mode Hardware-enforced Stack Protection
-- [ ] Memory Access Protection
-- [ ] Microsoft Defender Credential Guard
-- [ ] Microsoft Vulnerable Driver Blocklist
+Check the device security section, scroll to the bottom.
+
+If it says: "Standard hardware security not supported"
+
+- [ ] Either the device does not support Windows 11 at all, or there is a feature (such as secure boot or the TPM) that must be toggled in the firmware settings. Or it could just be a Windows Security bug.
+
+Once you see "Your device meets the requirements for standard hardware security", you can then go to **Core Isolation** and toggle on Memory Integrity, the Local Security Authority protection, as well as the Microsoft Vulnerable Driver Blocklist. In some cases, Windows 11 has this toggled on by default already, but this is not guaranteed afaik. After a reboot, the bottom of the device security section should say "Your device meets the requirements for enhanced hardware security".
+
+What extra mitigations there are is determined by your windows edition (credential guard is apparently a windows enterprise only feature), or hardware (firmware protection or kernel-mode hardware-enforced stack protection). If your device does not support them, do not attempt to force them on with group policies. It will not work.
+
+It's also worth noting that you can use group policies to enforce what features *are* supported with a "UEFI Lock" that prevents them from being toggled off without disabling secure boot (which requires physical access.)
+
+
+
+
+
+
 
 # Smart App Control
  
