@@ -388,10 +388,16 @@ By default, bitlocker is only setup to protect against "casual" physical access,
 
 So, turning on bitlocker from the settings menu should be enough. 
 
-Go to **Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Choose drive encryption method and cipher strength** and set it to XTS-AES 256.
+As bitlocker uses AES-128 by default, you can strengthen it by going to **Computer Configuration > Administrative Templates > Windows Components > BitLocker Drive Encryption > Choose drive encryption method and cipher strength** and setting it to XTS-AES 256 before encrypting.
 
-However, there have been attacks against bitlocker's TPM authentication, and it is by no means perfect. Should you wish to go the extra mile and deter against more than the "casual" physical attacker, you will have to take the following measures:  
+**Backup your recovery key.**
 
+This is *extremely* important. Sometimes after firmware updates, you might be prompted to enter it in (more on that later).
+
+However, there have been attacks against bitlocker's TPM authentication, and it is by no means perfect. Should you wish to go the extra mile and deter against more than the "casual" physical attacker, you will have to take the following measures:
+
+- Use an enhanced PIN in addition to the TPM for pre boot authentication
+- Disable standby power management and shut down/hibernate before leaving the device unattended
 
 # BlackLotus Revocations
 
