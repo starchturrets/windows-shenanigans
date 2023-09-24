@@ -75,6 +75,12 @@ Windows Spotlight sends back similar hardware data to required diagnostics. To t
 
 According to Microsoft docs, this must be done within **15 minutes of first install.**
 
+If you are on Pro, you will have to (I think) manually disable spotlight suggestions from the settings app.
+
+- [ ] **Personalization > Lock Screen > Personalize your lock screen > Picture**
+- [ ] You can then untick **Get fun facts, tips, tricks, and more on your lock screen** 
+- [ ] **Personalization > Background > Personalize your background > Picture** (if the group policies haven't done this already)
+
 
 # Bing Start Menu / Cortana / Copilot
 
