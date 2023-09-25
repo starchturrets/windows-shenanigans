@@ -3,15 +3,15 @@
 (Read the whole guide before going through with it please!)
 Disclaimer: I am not a security researcher, I simply read documentation, played around a bit with VMs, and talked to people in various privsec matrix channels. This is by no means comprehensive and/or a guarantee of privacy and security on Windows, as it is very much still a Work in Progress.
 
-# Things to note before installing: 
+# Things to note before installing
  
-- [ ] Does your device officially support Windows 11? Can Secure Boot and TPM be enabled in the firmware settings? CSM legacy boot mode should also be disabled. If not, do not attempt to bypass the hardware requirements, which provide much of the benefits of Windows 11 by allowing certain security features to be toggled on by default. If you're on an unsupported device and cannot upgrade, consider a Linux distro. 
-- [ ] If you're not planning on dualbooting or running Linux, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will somewhat improve boot security because instead of trusting hundreds of bootloaders you will only be trusting Windows (and your OEM) certificates.
+- [ ] Does your device officially support Windows 11? Even if supported, certain features in the firmware settings on some older devices, such as TPM or secure boot, are often disabled by default and must be toggled on. While it is technically possible to [bypass the requirements and install on unsupported hardware](https://support.microsoft.com/en-us/windows/installing-windows-11-on-devices-that-don-t-meet-minimum-system-requirements-0b2dc4a2-5933-4ad4-9c09-ef0a331518f1), you may want to consider a Linux distro. 
+- [ ] If you're not planning on dualbooting, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will somewhat improve boot security because instead of trusting hundreds of bootloaders you will only be trusting Windows (and your OEM) certificates.
 - [ ] Does your OEM/Motherboard manufacturer provide you with bloatware delivered through the WPBT? There may be an option in the firmware to disable it.
 
-# On Install:
+# On Install
 
-It is best not to login to a Microsoft Account on Windows. This is because of all the sync stuff that is toggled on by default. While not impossible to control, it's an annoyance that's best avoided. In addition, according to [this study](https://web.archive.org/web/20230717045727/https://www.autoriteitpersoonsgegevens.nl/uploads/imported/public_version_dutch_dpa_informal_translation_summary_of_investigation_report.pdf), more device identifiers are sent with telemetry when logged into a Microsoft Account (see pages 5 through 7).
+It is best not to login to a Microsoft Account on Windows. This is because of all the sync stuff that is toggled on by default. While not impossible to control, it's an annoyance that's best avoided. In addition, certain group policies for Edge do not apply to logged in users. Finally, according to [this study](https://web.archive.org/web/20230717045727/https://www.autoriteitpersoonsgegevens.nl/uploads/imported/public_version_dutch_dpa_informal_translation_summary_of_investigation_report.pdf), more device identifiers are sent with telemetry when logged into a Microsoft Account (see pages 5 through 7).
 
 On Windows 11 Pro and above it is possible to skip the requirement to login by clicking on the “Set up for work or school” option -> Sign-in Options -> Domain Join.
 
@@ -73,7 +73,7 @@ Windows Spotlight sends back similar hardware data to required diagnostics. To t
 
 - [ ] Enable the following Group Policy Computer Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off cloud optimized content.
 
-According to Microsoft docs, this must be done within **15 minutes of first install.**
+According to Microsoft docs, this must be done within **15 minutes of first install.** The first policy is also restricted to Enterprise/Education installs.
 
 If you are on Pro, you will have to (I think) manually disable spotlight suggestions from the settings app.
 
@@ -102,7 +102,7 @@ Uninstall Microsoft Bing and Cortana from **Settings > Apps > Installed Apps.** 
 To knock out copilot, set **User Configuration > Administrative Templates > Windows Components > Windows Copilot​ > Turn off Windows Copilot** to **Enabled**.
 
 
-# Defender / Smartscreen
+# Defender
 
 Go to **Windows Security > Virus and Threat Protection > Manage Settings > Automatic Sample Submission.**
 Click to disable it.
@@ -123,7 +123,7 @@ If you have chosen to not use Smart App Control, go to **Windows Security > App 
 
 It is probably the best to also disable **Smartscreen for Microsoft Edge**, as it has been shown to leak full URLs and browsing history to Microsoft. 
 
-# Edge Optional Features
+# Edge 
 
 Using Edge is a trade off between privacy and security. By default, Edge has many features that can and have leaked private data and browsing history to Microsoft. On the other hand, it does have legitimate security features such as MDAG and Enhanced Security Mode. It is up to you whether to use it or to just use another Browser such as Brave/Chrome/Firefox.
 
@@ -161,13 +161,13 @@ In `edge://settings/languages` disable the following:
 - [ ] Enable grammar and spellcheck assistance
 
 
-# Widgets / Live Tiles, Windows Media Player 
+# Widgets, Windows Media Player 
 
 These make potentially unneeded connections back to Microsoft, but from what I've seen they do not appear to send sensitive user data back. However, if you wish to disable them:
 
 **Computer Configuration > 	Windows Components > Widgets > AllowWidgets** should be set to **Disabled**.
 
-Alternatively, Widgets can be completely uninstalled by doing `winget uninstall "Windows Web Experience Pack"` in an elevated PowerShell window. 
+Alternatively, Widgets can be uninstalled by doing `winget uninstall "Windows Web Experience Pack"` in an elevated PowerShell window. 
 
 The Windows Media Player uses Bing by default to auto fetch Music metadata. This can be disabled by opening the app, going to settings, and toggling off "Search for missing Album and Artist art online".
 
