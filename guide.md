@@ -324,7 +324,7 @@ They can be found under: **Computer Configuration > Administrative Templates > W
 
 Activate it, and click the display status button. Then paste in the GUIDs of the ASR rules you wish to activate in the left column and 1 in the right column to activate them. You can get the GUIDs from here: https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference. It is possible that it could interfere with your workflow but I personally haven't noted any issue with just turning all of them on.
 
-In addition, you can apply the Microsoft 365 Security baselines for Enterprise. While tailored for Enterprise Office installs, many policies (such as the ones regarding macro signing) can also apply to others such as LTSC 2021 (based off of my testing).
+In addition, you can apply the [Microsoft 365 Security baselines for Enterprise.](https://learn.microsoft.com/en-us/deployoffice/security/security-baseline) It will disable the opening/saving of older file formats as well as unsigned script macros. This is not as strong of a security boundary as MDAG, but it should still be helpful for reducing attack surface. While tailored for Enterprise Office installs, many policies appear to also be applicable to others such as LTSC 2021.
 
 The baseline can be downloaded from here: https://www.microsoft.com/en-us/download/details.aspx?id=55319. Make sure to select `LGPO.zip` as well. After unzipping both files, make sure that `LGPO.exe` is in the `\Scripts\Tools` subdirectory. You can then open an admin Powershell in the `\Scripts` subdirectory and run:
 
