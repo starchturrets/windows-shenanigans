@@ -5,30 +5,30 @@ Disclaimer: I am not a security researcher, I simply read documentation, played 
 
 # Things to note before installing
  
-- [ ] Does your device officially support Windows 11? Even if supported, certain features in the firmware settings on some older devices, such as TPM or secure boot, are often disabled by default and must be toggled on. While it is technically possible to [bypass the requirements and install on unsupported hardware](https://support.microsoft.com/en-us/windows/installing-windows-11-on-devices-that-don-t-meet-minimum-system-requirements-0b2dc4a2-5933-4ad4-9c09-ef0a331518f1), you may want to consider a Linux distro. 
-- [ ] If you're not planning on dualbooting, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will somewhat improve boot security because instead of trusting hundreds of bootloaders you will only be trusting Windows (and your OEM) certificates.
+- [ ] Does your device officially support Windows 11? Even if supported, certain features in the firmware settings on some older devices, such as TPM or secure boot, are disabled by default and must be toggled on. While it is technically possible to [bypass the requirements and install on unsupported hardware](https://support.microsoft.com/en-us/windows/installing-windows-11-on-devices-that-don-t-meet-minimum-system-requirements-0b2dc4a2-5933-4ad4-9c09-ef0a331518f1), you may want to consider a Linux distro. 
+- [ ] If you're not planning on dualbooting, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will somewhat improve boot security because instead of trusting hundreds of bootloaders you will only be trusting Windows and your OEM certificates.
 - [ ] Does your OEM/Motherboard manufacturer provide you with bloatware delivered through the WPBT? There may be an option in the firmware to disable it.
 
 # On Install
 
 It is best not to login to a Microsoft Account on Windows. This is because of all the sync stuff that is toggled on by default. While not impossible to control, it's an annoyance that's best avoided. In addition, certain group policies for Edge do not apply to logged in users. Finally, according to [this study](https://web.archive.org/web/20230717045727/https://www.autoriteitpersoonsgegevens.nl/uploads/imported/public_version_dutch_dpa_informal_translation_summary_of_investigation_report.pdf), more device identifiers are sent with telemetry when logged into a Microsoft Account (see pages 5 through 7).
 
-On Windows 11 Pro and above it is possible to skip the requirement to login by clicking on the “Set up for work or school” option -> Sign-in Options -> Domain Join.
+To skip the login, select **Set up for work or school > Sign-in Options > Domain Join**.
 
 Go through the OOBE and opt out of everything:
 
-- [ ] Let Microsoft and apps use your location > No
-- [ ] Find my device > No
-- [ ] Send diagnostic data to Microsoft > Required only
-- [ ] Improve inking & typing > No
-- [ ] Get tailored experiences with diagnostic data > No
-- [ ] Let apps use advertising ID > No
+- [ ] **Let Microsoft and apps use your location > No**
+- [ ] **Find my device > No**
+- [ ] **Send diagnostic data to Microsoft > Required only**
+- [ ] **Improve inking & typing > No**
+- [ ] **Get tailored experiences with diagnostic data > No**
+- [ ] **Let apps use advertising ID > No**
 
 To stop Windows from pestering you to login to a Microsoft account, go to **System > Settings > Notifications > Additional Settings** and untick all the checkboxes there.
 
-- [ ] Show the Windows welcome experience after updates and when signed in to show what's new and suggested
-- [ ] Suggest ways to get the most out of Windows and finish setting up this device
-- [ ] Get tips and suggestions when using Windows
+- [ ] **Show the Windows welcome experience after updates and when signed in to show what's new and suggested**
+- [ ] **Suggest ways to get the most out of Windows and finish setting up this device**
+- [ ] **Get tips and suggestions when using Windows**
 
 # Things that phone home to Microsoft
 
@@ -44,14 +44,14 @@ Based off what I've seen, these are the more relevant items:
 
 1. OS Diagnostics
 2. Windows Spotlight
-3. Bing Start Menu (Cortana and Search) 
-4. Edge Optional Features
-5. Certain aspects of Windows Defender (Smartscreen/SAC, Automatic Sample Submission)
+3. Bing Start Menu / Copilot 
+4. Edge 
+5. Certain aspects of Windows Defender (Automatic Sample Submission, Reputation Based Checks)
 6. (Optional) Widgets and Live Tiles, Windows Media Player 
 
 # OS Diagnostics (Sends back hardware data, among other things)
 
-If you are on Pro, you cannot fully disable OS diagnostics. Opt out of optional diagnostics on first setup and do not attempt to download third party tools that claim to disable telemetry.
+If you are on Pro, you cannot fully disable OS diagnostics. Select required diagnostics only in the OOBE and do not attempt to download third party tools that claim to disable telemetry.
 
 <details>
 
@@ -65,15 +65,15 @@ Select the "Send no Diagnostic Data" Option, then click OK to apply changes.
 
 </details>
 
-## Windows Spotlight
+# Windows Spotlight
 
 Windows Spotlight sends back similar hardware data to required diagnostics. To turn it off:
 
-- [ ] Enable the following Group Policy User Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off all Windows spotlight features.
+- [ ] Enable the following Group Policy **User Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off all Windows spotlight features.**
 
-- [ ] Enable the following Group Policy Computer Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off cloud optimized content.
+- [ ] Enable the following Group Policy **Computer Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off cloud optimized content.**
 
-According to Microsoft docs, this must be done within **15 minutes of first install.** The first policy is also restricted to Enterprise/Education installs.
+According to Microsoft docs, this must be done within **15 minutes of first install.** The first policy is also restricted to Enterprise/Education installs only.
 
 If you are on Pro, you will have to (I think) manually disable spotlight suggestions from the settings app.
 
@@ -84,7 +84,7 @@ If you are on Pro, you will have to (I think) manually disable spotlight suggest
 
 # Bing Start Menu / Cortana / Copilot
 
-By default, the start menu search searches the web, which could leak your local file queries to Microsoft. According to documentation, the following is needed to disable Cortana and Search on 22H2:
+By default, the start menu search searches the web, which leaks your local file queries to Microsoft. According to documentation, the following is needed to disable Cortana and Search on 22H2:
 
 Find the Cortana Group Policy objects under **Computer Configuration > Administrative Templates > Windows Components > Search.**
 
@@ -194,17 +194,17 @@ Microsoft Apps such as Cortana can be removed using the `winget` package manager
 
 Note that uninstalling Cortana does not remove the need to apply the above group policies regarding Cortana and Search. You also cannot uninstall Microsoft Edge.  Do not go overboard uninstalling system apps in case you break something, and *please*, do not download third party debloater tools.
 
-# Security Stuff
+# Improving Security
 
 - [ ] Make Sure everything is up to date! 
-- [ ] Keep Camera / Mic / Location off when not in use
-- [ ] Set UAC to the max, and consider using a non admin user
-- [ ] Use `winget` to manage apps
-- [ ] Make sure whatever exploit mitigations that are supported by the hardware are on, see Controlled Folder Access as well
-- [ ] (Somewhat Advanced) Use a WDAC policy to mimic Smart App Control's functionality while adding a bit more flexibility
-- [ ] (Advanced) Run WDAC without the Intelligent Security Graph
+- [ ] Keep Camera / Mic / Location off when not in use with global killswitches
+- [ ] Set UAC to "Always Notify", and consider daily driving a standard user account
+- [ ] Use `winget` to manage apps where possible
+- [ ] Enable supported hardware security features 
+- [ ] Enable Controlled Folder Access 
+- [ ] Turn on Smart App Control, or use a WDAC policy to somewhat mimic Smart App Control's functionality while adding a bit more flexibility
 - [ ] Use VMs to run untrusted executables (Hyper V / MDAG / Windows Sandbox)
-- [ ] Use attack surface reduction rules to harden Office, disable VBA macros.
+- [ ] Improve Office security with ASR rules and Security Baselines
 - [ ] Configure Bitlocker
 - [ ] Apply the BlackLotus secure boot revocations
 - [ ] Use admx group policies to improve Edge security
@@ -250,20 +250,17 @@ https://support.microsoft.com/en-us/windows/device-protection-in-windows-securit
 
 Check the device security section, scroll to the bottom.
 
-If it says: "Standard hardware security not supported"
+If it says: "Standard hardware security not supported":
 
-- [ ] Either the device does not support Windows 11 at all, or there is a feature (such as secure boot or the TPM) that must be toggled in the firmware settings. Or it could just be a Windows Security bug.
+- [ ] Your device does not support Windows 11 at all
+- [ ] There is a feature (such as secure boot or the TPM) that must be toggled in the firmware settings
+- [ ] It is a Windows Security bug - in which case you can manually validate by checking `msinfo32.exe`
 
 Once you see "Your device meets the requirements for standard hardware security", you can then go to **Core Isolation** and toggle on Memory Integrity, the Local Security Authority protection, as well as the Microsoft Vulnerable Driver Blocklist. In some cases, Windows 11 has this toggled on by default already, but this is not guaranteed afaik. After a reboot, the bottom of the device security section should say "Your device meets the requirements for enhanced hardware security".
 
-What extra mitigations there are is determined by your windows edition (credential guard is apparently a windows enterprise only feature), or hardware (firmware protection or kernel-mode hardware-enforced stack protection). If your device does not support them, do not attempt to force them on with group policies. It will not work.
+There may be some extra mitigations there; which precisely is determined by your windows edition (credential guard is apparently a windows enterprise only feature), or hardware (firmware protection or kernel-mode hardware-enforced stack protection). If your device does not support them, do not attempt to force them on with group policies. 
 
 It's also worth noting that you can use group policies to enforce what features *are* supported with a "UEFI Lock" that prevents them from being toggled off without disabling secure boot (which requires physical access.)
-
-
-
-
-
 
 
 # Smart App Control
@@ -291,7 +288,7 @@ https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDACConfig
 
 If you want to use SAC but don't want to reset/reinstall, you can follow HotCakeX's guide for Lightly Managed Devices to create a WDAC policy that mimics its functionality: https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices
 
-Do note that this doesn't completely replace SAC, as it is missing the [blocking of dangerous file types.](https://www.bleepingcomputer.com/news/microsoft/windows-11-smart-app-control-blocks-files-used-to-push-malware/) Also note that the ISG option with WDAC is apparently [somewhat less restrictive](https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices#security-considerations) in certain aspects than SAC.
+Do note that this doesn't completely replace SAC, as it is missing the [blocking of dangerous file types.](https://www.bleepingcomputer.com/news/microsoft/windows-11-smart-app-control-blocks-files-used-to-push-malware/) Also note that the ISG option with WDAC is apparently [somewhat less restrictive](https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices#security-considerations) in certain aspects than SAC. Finally, the Lightly Managed Variant does not enforce script blocking.
 
 # Microsoft Office
 
@@ -326,7 +323,7 @@ Activate it, and click the display status button. Then paste in the GUIDs of the
 
 In addition, you can apply the [Microsoft 365 Security baselines for Enterprise.](https://learn.microsoft.com/en-us/deployoffice/security/security-baseline) It will disable the opening/saving of older file formats as well as unsigned script macros. This is not as strong of a security boundary as MDAG, but it should still be helpful for reducing attack surface. While tailored for Enterprise Office installs, many policies appear to also be applicable to others such as LTSC 2021.
 
-The baseline can be downloaded from here: https://www.microsoft.com/en-us/download/details.aspx?id=55319. Make sure to select `LGPO.zip` as well. After unzipping both files, make sure that `LGPO.exe` is in the `\Scripts\Tools` subdirectory. You can then open an admin Powershell in the `\Scripts` subdirectory and run:
+The baseline can be downloaded from here: https://www.microsoft.com/en-us/download/details.aspx?id=55319. Make sure to select `LGPO.zip` as well. After unzipping both files, move `LGPO.exe` to the `\Scripts\Tools` subdirectory. You can then open an admin Powershell in the `\Scripts` subdirectory and run:
 
 ```
  powershell.exe -ExecutionPolicy unrestricted .\Baseline-LocalInstall.ps1
