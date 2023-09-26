@@ -288,7 +288,7 @@ https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDACConfig
 
 If you want to use SAC but don't want to reset/reinstall, you can follow HotCakeX's guide for Lightly Managed Devices to create a WDAC policy that mimics its functionality: https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices
 
-Do note that this doesn't completely replace SAC, as it is missing the [blocking of dangerous file types.](https://www.bleepingcomputer.com/news/microsoft/windows-11-smart-app-control-blocks-files-used-to-push-malware/) Also note that the ISG option with WDAC is apparently [somewhat less restrictive](https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices#security-considerations) in certain aspects than SAC. Finally, the Lightly Managed Variant does not enforce script blocking.
+Do note that this doesn't completely replace SAC, as it is missing the [blocking of dangerous file types.](https://www.bleepingcomputer.com/news/microsoft/windows-11-smart-app-control-blocks-files-used-to-push-malware/) Also note that the ISG option with WDAC is apparently [somewhat less restrictive](https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices#security-considerations) in certain aspects than SAC. 
 
 # Microsoft Office
 
