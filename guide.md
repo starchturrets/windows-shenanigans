@@ -273,7 +273,6 @@ While this means it is dead simple, it is also a blunt all or nothing - if a dll
 
 So, SAC is probably a good idea under the following conditions:
 
-- You do not use WSL (sorry, that gets blocked!)
 - You are not a programmer (generating lots of unsigned code doesn't play very well with it)
 - You primarily use apps from Microsoft Store/winget that are unlikely to be blocked
 - You are OK with Microsoft getting file metadata (see above)
