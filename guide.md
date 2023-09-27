@@ -3,13 +3,13 @@
 (Read the whole guide before going through with it please!)
 Disclaimer: I am not a security researcher, I simply read documentation, played around a bit with VMs, and talked to people in various privsec matrix channels. This is by no means comprehensive and/or a guarantee of privacy and security on Windows, as it is very much still a Work in Progress.
 
-# Things to note before installing
+## Things to note before installing
  
 - [ ] Does your device officially support Windows 11? Even if supported, certain features in the firmware settings on some older devices, such as TPM or secure boot, are disabled by default and must be toggled on. While it is technically possible to [bypass the requirements and install on unsupported hardware](https://support.microsoft.com/en-us/windows/installing-windows-11-on-devices-that-don-t-meet-minimum-system-requirements-0b2dc4a2-5933-4ad4-9c09-ef0a331518f1), you may want to consider a Linux distro. 
 - [ ] If you're not planning on dualbooting, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will somewhat improve boot security because instead of trusting hundreds of bootloaders you will only be trusting Windows and your OEM certificates.
 - [ ] Does your OEM/Motherboard manufacturer provide you with bloatware delivered through the WPBT? There may be an option in the firmware to disable it.
 
-# On Install
+## On Install
 
 It is best not to login to a Microsoft Account on Windows. This is because of all the sync stuff that is toggled on by default. While not impossible to control, it's an annoyance that's best avoided. In addition, certain group policies for Edge do not apply to logged in users. Finally, according to [this study](https://web.archive.org/web/20230717045727/https://www.autoriteitpersoonsgegevens.nl/uploads/imported/public_version_dutch_dpa_informal_translation_summary_of_investigation_report.pdf), more device identifiers are sent with telemetry when logged into a Microsoft Account (see pages 5 through 7).
 
@@ -30,7 +30,7 @@ To stop Windows from pestering you to login to a Microsoft account, go to **Syst
 - [ ] **Suggest ways to get the most out of Windows and finish setting up this device**
 - [ ] **Get tips and suggestions when using Windows**
 
-# Things that phone home to Microsoft
+## Things that phone home to Microsoft
 
 This section is based off of limited testing in a VM, along with documentation from Microsoft:
 
@@ -49,7 +49,7 @@ Based off what I've seen, these are the more relevant items:
 5. Certain aspects of Windows Defender (Automatic Sample Submission, Reputation Based Checks)
 6. (Optional) Widgets and Live Tiles, Windows Media Player 
 
-# OS Diagnostics (Sends back hardware data, among other things)
+## OS Diagnostics (Sends back hardware data, among other things)
 
 If you are on Pro, you cannot fully disable OS diagnostics. Select required diagnostics only in the OOBE and do not attempt to download third party tools that claim to disable telemetry.
 
@@ -65,7 +65,7 @@ Select the "Send no Diagnostic Data" Option, then click OK to apply changes.
 
 </details>
 
-# Windows Spotlight
+## Windows Spotlight
 
 Windows Spotlight sends back similar hardware data to required diagnostics. To turn it off:
 
@@ -82,7 +82,7 @@ If you are on Pro, you will have to (I think) manually disable spotlight suggest
 - [ ] **Personalization > Background > Personalize your background > Picture** (if the group policies haven't done this already)
 
 
-# Bing Start Menu / Cortana / Copilot
+## Bing Start Menu / Cortana / Copilot
 
 By default, the start menu search searches the web, which leaks your local file queries to Microsoft. According to documentation, the following is needed to disable Cortana and Search on 22H2:
 
@@ -102,12 +102,12 @@ Uninstall Microsoft Bing and Cortana from **Settings > Apps > Installed Apps.** 
 To knock out copilot, set **User Configuration > Administrative Templates > Windows Components > Windows Copilot​ > Turn off Windows Copilot** to **Enabled**.
 
 
-# Defender
+## Defender
 
 Go to **Windows Security > Virus and Threat Protection > Manage Settings > Automatic Sample Submission.**
 Click to disable it.
 
-# Smart App Control 
+## Smart App Control 
 
 Smart App Control (and Smartscreen in general) is a tradeoff between privacy and security. On the one hand, it improves security by using reputation checks to make sure legitimate files are not blocked while blocking malware, on the other hand it needs to send file metadata to Microsoft in order to function. As the Microsoft Privacy Policy puts it: 
 
@@ -123,7 +123,7 @@ If you have chosen to not use Smart App Control, go to **Windows Security > App 
 
 It is probably the best to also disable **Smartscreen for Microsoft Edge**, as it has been shown to leak full URLs and browsing history to Microsoft. 
 
-# Edge 
+## Edge 
 
 Using Edge is a trade off between privacy and security. By default, Edge has many features that can and have leaked private data and browsing history to Microsoft. On the other hand, it does have legitimate security features such as MDAG and Enhanced Security Mode. It is up to you whether to use it or to just use another Browser such as Brave/Chrome/Firefox.
 
@@ -161,7 +161,7 @@ In `edge://settings/languages` disable the following:
 - [ ] Enable grammar and spellcheck assistance
 
 
-# Widgets, Windows Media Player 
+## Widgets, Windows Media Player 
 
 These make potentially unneeded connections back to Microsoft, but from what I've seen they do not appear to send sensitive user data back. However, if you wish to disable them:
 
@@ -171,7 +171,7 @@ Alternatively, Widgets can be uninstalled by doing `winget uninstall "Windows We
 
 The Windows Media Player uses Bing by default to auto fetch Music metadata. This can be disabled by opening the app, going to settings, and toggling off "Search for missing Album and Artist art online".
 
-# Debloating
+## Debloating
 
 There are several things to put up with on Windows:
 
@@ -194,7 +194,7 @@ Microsoft Apps such as Cortana can be removed using the `winget` package manager
 
 Note that uninstalling Cortana does not remove the need to apply the above group policies regarding Cortana and Search. You also cannot uninstall Microsoft Edge.  Do not go overboard uninstalling system apps in case you break something, and *please*, do not download third party debloater tools.
 
-# Improving Security
+## Improving Security
 
 - [ ] Make Sure everything is up to date! 
 - [ ] Keep Camera / Mic / Location off when not in use with global killswitches
@@ -209,7 +209,7 @@ Note that uninstalling Cortana does not remove the need to apply the above group
 - [ ] Apply the BlackLotus secure boot revocations
 - [ ] Use admx group policies to improve Edge security
   
-# Keep Everything Updated
+## Keep Everything Updated
 
 Check your Windows Update settings page regularly, especially on the second Tuesday of each month, as Microsoft usually releases security updates then ("Patch Tuesday").
 
@@ -219,15 +219,15 @@ Also check "Optional Updates" for driver and firmware updates. However, in some 
 
 Winget can update some apps, but not those from the Microsoft Store, so you'll have to check things there separately.
 
-# Camera / Mic / Location
+## Camera / Mic / Location
 
 Due to currently terrible permission control, not all apps can be denied the camera or mic permission. So keep the global toggle disabled when not in use, which should turn it off for legacy desktop apps as well. Note that apps with admin access can override this setting.
 
-# User Account Control
+## User Account Control
 
 Set UAC to the highest level: type "UAC" into the start menu, click the settings result that shows up, and move the slider up to the "Always notify" level. This will mitigate *some* [bypasses](https://www.bleepingcomputer.com/news/security/old-windows-mock-folders-uac-bypass-used-to-drop-malware/). However, UAC is **not** considered a [security boundary](https://www.microsoft.com/en-us/msrc/windows-security-servicing-criteria) by Microsoft. The best option is to daily drive a standard user account, and switch into the admin account only when absolutely needed.
 
-# App Management
+## App Management
 
 Rather than using a search engine to look for and download app - which is prone to being gamed by [malicious sites](https://www.bleepingcomputer.com/news/security/hackers-abuse-google-ads-to-spread-malware-in-legit-software/), it is preferable to use the `winget` package manager which comes preinstalled on Windows 11 by default. To look for a package, open up a terminal window and type in `winget search "Package Name"`. You can then verify the publisher (which is handy for Microsoft Store apps) by copying the application ID and running `winget show "application ID"`. 
 
@@ -263,7 +263,7 @@ There may be some extra mitigations there; which precisely is determined by your
 It's also worth noting that you can use group policies to enforce what features *are* supported with a "UEFI Lock" that prevents them from being toggled off without disabling secure boot (which requires physical access.)
 
 
-# Smart App Control
+## Smart App Control
  
 Windows offers several methods to stop untrusted executables from running, such as AppLocker or Smart App Control / WDAC. Each of them have their own advantages and disadvantages, but they do help mitigate attacks such as those from clicking on disguised executables.  
 
@@ -290,7 +290,7 @@ If you want to use SAC but don't want to reset/reinstall, you can follow HotCake
 
 Do note that this doesn't completely replace SAC, as it is missing the [blocking of dangerous file types.](https://www.bleepingcomputer.com/news/microsoft/windows-11-smart-app-control-blocks-files-used-to-push-malware/) Also note that the ISG option with WDAC is apparently [somewhat less restrictive](https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices#security-considerations) in certain aspects than SAC. 
 
-# Microsoft Office
+## Microsoft Office
 
 Unfortunately, unless you're on an Enterprise 365 Office subscription (unlikely) you will not be able to make use of MDAG like on Edge. That being said, there are still a few steps you can take to improve security on Office.
 
@@ -336,7 +336,7 @@ After running, reboot.
 Administrative templates (should you wish to override a setting from the group policy editor or have them show up in your GPReport) can be downloaded from here: https://www.microsoft.com/en-us/download/details.aspx?id=49030. 
 
 
-# Windows Sandbox for untrusted files
+## Windows Sandbox for untrusted files
 
 - Make sure you meet the prerequisites for installation: https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview#prerequisites
 - If so, you can enable it by going to Turn Windows Features on or off > Windows Sandbox. Select it, click ok, then restart the computer if prompted.
@@ -377,7 +377,7 @@ This is a bit more experimental, but it's possible to configure Windows Sandbox 
 
 While being a relatively simple `.wsb` file, it has the disadvantage of taking about a minute to install each time the sandbox instance is started.
 
-# Bitlocker
+## Bitlocker
 
 https://learn.microsoft.com/en-us/windows/security/operating-system-security/data-protection/bitlocker/bitlocker-countermeasures
 
@@ -396,7 +396,7 @@ However, there have been attacks against bitlocker's TPM authentication, and it 
 - Use an enhanced PIN in addition to the TPM for pre boot authentication
 - Disable standby power management and shut down/hibernate before leaving the device unattended
 
-# BlackLotus Revocations
+## BlackLotus Revocations
 
 https://support.microsoft.com/en-us/topic/kb5025885-how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d
 
