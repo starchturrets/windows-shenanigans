@@ -296,9 +296,7 @@ Unfortunately, unless you're on an Enterprise 365 Office subscription (unlikely)
 
 https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction?view=o365-worldwide
 
-ASR rules can be deployed without a subscription and in some cases have mitigated the exploit of a CVE: https://msrc.microsoft.com/update-guide/vulnerability/CVE-2023-36884
-
-They can be found under: **Computer Configuration > Administrative Templates > Windows Components > Microsoft Defender Antivirus > Microsoft Defender Exploit Guard > Attack Surface Reduction Rules.**
+ASR rules can be found under: **Computer Configuration > Administrative Templates > Windows Components > Microsoft Defender Antivirus > Microsoft Defender Exploit Guard > Attack Surface Reduction Rules.**
 
 | ASR Rule                                                                                          | GUID                                   |
 |---------------------------------------------------------------------------------------------------|----------------------------------------|
