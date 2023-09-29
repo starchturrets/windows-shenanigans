@@ -225,7 +225,7 @@ Due to currently terrible permission control, not all apps can be denied the cam
 
 ## User Account Control
 
-Set UAC to the highest level: type "UAC" into the start menu, click the settings result that shows up, and move the slider up to the "Always notify" level. This will mitigate *some* [bypasses](https://www.bleepingcomputer.com/news/security/old-windows-mock-folders-uac-bypass-used-to-drop-malware/). However, UAC is **not** considered a [security boundary](https://www.microsoft.com/en-us/msrc/windows-security-servicing-criteria) by Microsoft. The best option is to daily drive a standard user account, and switch into the admin account only when absolutely needed.
+Set UAC to the highest level: type "UAC" into the start menu, click the settings result that shows up, and move the slider up to the "Always notify" level. This will mitigate *some* [bypasses](https://www.bleepingcomputer.com/news/security/old-windows-mock-folders-uac-bypass-used-to-drop-malware/). However, UAC is **not** considered a [security boundary](https://www.microsoft.com/en-us/msrc/windows-security-servicing-criteria) by Microsoft. The best option is to daily drive a standard user account, and switch into the admin account only when absolutely needed. 
 
 ## App Management
 
@@ -240,7 +240,7 @@ While this is by no means a guarantee, this should reduce the chances of getting
 
 Occasionally an app will show up as being downloadable from either the Store or the publisher website. Currently there does not seem to be any major security difference between the two (aside from making WDAC Configuration somewhat harder), so it is up to the user to decide which to install.  
 
-Microsoft Store apps can be sandboxed (as UWP), however this is not enforced. Check the permissions page and make sure that an app does not have the "Use All System Resources" permission if you wish for it to be sandboxed.
+Microsoft Store apps can be sandboxed, however **just because an app is on the Store does not mean it is sandboxed**. Check the permissions page and make sure that an app does not have the "Use All System Resources" permission if you wish for it to be sandboxed. 
 
 When possible, avoid running unsigned apps. 
 
