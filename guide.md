@@ -5,9 +5,9 @@ Disclaimer: I am not a security researcher, I simply read documentation, played 
 
 ## Things to note before installing
  
-- [ ] Does your device officially support Windows 11? Even if supported, certain features in the firmware settings on some older devices, such as TPM or secure boot, are disabled by default and must be toggled on. While it is technically possible to [bypass the requirements and install on unsupported hardware](https://support.microsoft.com/en-us/windows/installing-windows-11-on-devices-that-don-t-meet-minimum-system-requirements-0b2dc4a2-5933-4ad4-9c09-ef0a331518f1), you may want to consider a Linux distro. 
-- [ ] If you're not planning on dualbooting, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will somewhat improve boot security because instead of trusting hundreds of bootloaders you will only be trusting Windows and your OEM certificates.
-- [ ] Does your OEM/Motherboard manufacturer provide you with bloatware delivered through the WPBT? There may be an option in the firmware to disable it.
+- [ ] Does your device officially support Windows 11? Even if supported, certain features in the firmware settings on some older devices, such as TPM or secure boot, may be disabled by default and must be toggled on. [Look for a "PTT" setting for Intel devices and "fTPM" for AMD ones.](https://nitter.woodland.cafe/dwizzzleMSFT/status/1408144290954366976#m) While it is technically possible to [bypass the requirements and install on unsupported hardware](https://support.microsoft.com/en-us/windows/installing-windows-11-on-devices-that-don-t-meet-minimum-system-requirements-0b2dc4a2-5933-4ad4-9c09-ef0a331518f1), you may want to consider a Linux distro. 
+- [ ] If you're not planning on dualbooting, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will slightly improve boot security because instead of trusting the many bootloaders signed by it you will only be trusting Windows and your OEM certificates.   
+- [ ] Does your OEM/Motherboard manufacturer provide you with bloatware delivered through the WPBT? (Example: Asus Armory Crate). There may be an option in the firmware to disable it.
 
 ## On Install
 
