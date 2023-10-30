@@ -389,10 +389,11 @@ As bitlocker uses AES-128 by default, you can strengthen it by going to **Comput
 
 This is *extremely* important. Sometimes after firmware updates, you might be prompted to enter it in (more on that later).
 
-However, there have been attacks against bitlocker's TPM authentication, and it is by no means perfect. Should you wish to go the extra mile and deter against more than the "casual" physical attacker, you will have to take the following measures:
+However, there have been [attacks against bitlocker's TPM authentication, and it is by no means perfect](https://github.com/Wack0/bitlocker-attacks). Should you wish to go the extra mile and deter against more than the "casual" physical attacker, you will have to take the following measures:
 
 - Use an enhanced PIN in addition to the TPM for pre boot authentication
 - Disable standby power management and shut down/hibernate before leaving the device unattended
+- Use legacy integrity validation, and pin Bitlocker to PCRs 0, 2, 4, 7, and 11.
 
 ## BlackLotus Revocations
 
