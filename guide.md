@@ -24,7 +24,9 @@ Go through the OOBE and opt out of everything:
 - [ ] **Get tailored experiences with diagnostic data > No**
 - [ ] **Let apps use advertising ID > No**
 
-To stop Windows from pestering you to login to a Microsoft account, go to **System > Settings > Notifications > Additional Settings** and untick all the checkboxes there.
+If you are on Enterprise, you can stop Windows from pestering you to login to a Microsoft account by opening the group policy editor and enabling **Computer Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off Microsoft consumer experiences.**
+
+If on Pro go to **System > Settings > Notifications > Additional Settings** and untick all the checkboxes there. This goes for new user accounts as well.
 
 - [ ] **Show the Windows welcome experience after updates and when signed in to show what's new and suggested**
 - [ ] **Suggest ways to get the most out of Windows and finish setting up this device**
@@ -75,12 +77,15 @@ Windows Spotlight sends back similar hardware data to required diagnostics. To t
 
 According to Microsoft docs, this must be done within **15 minutes of first install.** The first policy is also restricted to Enterprise/Education installs only.
 
-If you are on Pro, you will have to (I think) manually disable spotlight suggestions from the settings app.
+If you are on Pro, you can't fully turn off spotlight. You can still turn off the daily lockscreen images in settings (has to be done for every new user account):
 
 - [ ] **Personalization > Lock Screen > Personalize your lock screen > Picture**
-- [ ] You can then untick **Get fun facts, tips, tricks, and more on your lock screen** 
-- [ ] **Personalization > Background > Personalize your background > Picture** (if the group policies haven't done this already)
+- [ ] Untick **Get fun facts, tips, tricks, and more on your lock screen**
 
+ You can also disable the daily wallpaper images entirely in group policy, and disallow diagnostic data from being used for tailored experiences (applies machine wide):  
+ 
+- [ ] Enable **User Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off Spotlight collection on Desktop.**
+- [ ] Enable **User Configuration > Administrative Templates > Windows Components > Cloud Content > Do not use diagnostic data for tailored experiences.**
 
 ## Bing Start Menu / Cortana / Copilot
 
