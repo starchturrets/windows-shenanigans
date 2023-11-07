@@ -232,6 +232,13 @@ Due to currently terrible permission control, not all apps can be denied the cam
 
 Set UAC to the highest level: type "UAC" into the start menu, click the settings result that shows up, and move the slider up to the "Always notify" level. This will mitigate *some* [bypasses](https://www.bleepingcomputer.com/news/security/old-windows-mock-folders-uac-bypass-used-to-drop-malware/). However, UAC is **not** considered a [security boundary](https://www.microsoft.com/en-us/msrc/windows-security-servicing-criteria) by Microsoft. The best option is to daily drive a standard user account, and switch into the admin account only when absolutely needed. 
 
+While having to authenticate to elevate is an inconvenience, you can mitigate this somewhat by using a relatively short Windows Hello PIN or biometrics. While it may seem less secure to have a short pin, this is backed by the TPM, which should enforce ratelimiting. (See: these [two](https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-why-pin-is-better-than-password#pin-is-backed-by-hardware) documentation [articles](https://learn.microsoft.com/en-us/windows/security/hardware-security/tpm/how-windows-uses-the-tpm) from Microsoft Learn about it.)
+
+By default, Windows forces you to set security questions for a new local account, as well as go through the OOBE again. To disable:
+
+- [ ] Enable the following group policy: **Computer Configuration > Administrative Templates > Windows Components > Credential User Interface > Prevent the use of security questions for local accounts**
+- [ ] Enable the following group policy **Computer Configuration > Administrative Templates > Windows Components > OOBE > Don't launch privacy settings experience on user logon**
+
 ## App Management
 
 Rather than using a search engine to look for and download app - which is prone to being gamed by [malicious sites](https://www.bleepingcomputer.com/news/security/hackers-abuse-google-ads-to-spread-malware-in-legit-software/), it is preferable to use the `winget` package manager which comes preinstalled on Windows 11 by default. To look for a package, open up a terminal window and type in `winget search "Package Name"`. You can then verify the publisher (which is handy for Microsoft Store apps) by copying the application ID and running `winget show "application ID"`. 
