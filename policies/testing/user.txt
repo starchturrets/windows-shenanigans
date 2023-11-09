@@ -1,0 +1,37 @@
+; ----------------------------------------------------------------------
+; PARSING User POLICY
+; Source file:  .\user.pol
+
+User
+Software\Policies\Microsoft\Windows\CloudContent
+DisableWindowsSpotlightFeatures
+DWORD:1
+
+User
+Software\Policies\Microsoft\Windows\CloudContent
+DisableTailoredExperiencesWithDiagnosticData
+DWORD:1
+
+User
+Software\Policies\Microsoft\Windows\CloudContent
+DisableSpotlightCollectionOnDesktop
+DWORD:1
+
+User
+Software\Policies\Microsoft\Windows\Explorer
+DisableSearchBoxSuggestions
+DWORD:1
+
+User
+Software\Policies\Microsoft\Windows\Explorer
+HideRecommendedPersonalizedSites
+DWORD:1
+
+User
+Software\Policies\Microsoft\Windows\WindowsCopilot
+TurnOffWindowsCopilot
+DWORD:1
+
+; PARSING COMPLETED.
+; ----------------------------------------------------------------------
+
