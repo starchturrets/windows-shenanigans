@@ -1,0 +1,96 @@
+; ----------------------------------------------------------------------
+; PARSING Computer POLICY
+; Source file:  .\machine.pol
+
+Computer
+SOFTWARE\Policies\Microsoft\Dsh
+AllowNewsAndInterests
+DWORD:0
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\CloudContent
+DisableWindowsConsumerFeatures
+DWORD:1
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\CloudContent
+DisableCloudOptimizedContent
+DWORD:1
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\DataCollection
+AllowDeviceNameInTelemetry
+DWORD:0
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\DataCollection
+AllowTelemetry
+DWORD:0
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\Device Metadata
+PreventDeviceMetadataFromNetwork
+DWORD:1
+
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\DeviceGuard
+ConfigureSystemGuardLaunch
+DWORD:0
+
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\Explorer
+HideRecommendedPersonalizedSites
+DWORD:1
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\GameDVR
+AllowGameDVR
+DWORD:0
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\OOBE
+DisablePrivacyExperience
+DWORD:1
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\System
+NoLocalPasswordResetQuestions
+DWORD:1
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\Windows Search
+DisableWebSearch
+DWORD:1
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\Windows Search
+ConnectedSearchUseWeb
+DWORD:0
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\Windows Search
+AllowCortana
+DWORD:0
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\Windows Search
+AllowCloudSearch
+DELETE
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows\Windows Search
+AllowSearchToUseLocation
+DWORD:0
+
+Computer
+SOFTWARE\Policies\Microsoft\Windows Defender\Spynet
+SubmitSamplesConsent
+DWORD:2
+
+
+
+; PARSING COMPLETED.
+; ----------------------------------------------------------------------
+
