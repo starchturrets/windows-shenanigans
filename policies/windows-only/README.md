@@ -1,1 +1,1 @@
-Policies for only windows, kept relatively minimal. Limits diagnostic data, spotlight and bing nonsense as much as possible per edition. Also turns off copilot. Smartscreen is left up to the individual user to configure as it is threat model dependent.
+Policies for only windows, kept relatively minimal. Limits diagnostic data, spotlight, and bing nonsense as much as possible per edition. Also turns off copilot. Smartscreen is left up to the individual user to configure as it is threat model dependent.
