@@ -256,7 +256,7 @@ Microsoft Store apps can be sandboxed, however **just because an app is on the S
 
 When possible, avoid running unsigned apps. 
 
-# Exploit Mitigations in Windows Security
+# Virtualizazion Based Security and related settings
 
 https://support.microsoft.com/en-us/windows/device-protection-in-windows-security-afa11526-de57-b1c5-599f-3a4c6a61c5e2
 
@@ -281,7 +281,7 @@ Windows offers several methods to stop untrusted executables from running, such 
 
 WDAC (Windows Defender Application Control) is what runs under the hood of Smart App Control, however SAC exposes far less configuration. SAC can be enabled on new installs by opening the Windows Security App and going to **App and Browser Control > Settings for Smart App Control** and selecting the Activated option.
 
-While this means it is dead simple, it is also a blunt all or nothing - if a dll critical to signal desktop or another similar app is blocked, there is no option to allowlist it, only turn it off entirely, and it cannot be reenabled without reinstalling the OS.
+While this means it is dead simple, it is also a blunt all or nothing - if a dll critical to signal desktop or another similar app is blocked, there is no option to allowlist it, only turn it off entirely, and it cannot be (officially) reenabled without reinstalling the OS. (This is [deliberate](https://nitter.woodland.cafe/dwizzzleMSFT/status/1723004632815837220#m)).
 
 So, SAC is probably a good idea under the following conditions:
 
@@ -290,17 +290,7 @@ So, SAC is probably a good idea under the following conditions:
 - You primarily use apps from Microsoft Store/winget that are unlikely to be blocked
 - You are OK with Microsoft getting file metadata (see above)
 
-If you only use a few basic apps, I recommend using SAC unless it's incompatible with your workflow.
-
-While I do manage my own WDAC policy manually, it is somewhat labor intensive (and also a WIP), so if you wish to learn more about WDAC, consider the resources provided by HotCakeX based off of Microsoft documentation: 
-
-https://github.com/HotCakeX/Harden-Windows-Security/wiki/Introduction
-
-https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDACConfig
-
-If you want to use SAC but don't want to reset/reinstall, you can follow HotCakeX's guide for Lightly Managed Devices to create a WDAC policy that mimics its functionality: https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices
-
-Do note that this doesn't completely replace SAC, as it is missing the [blocking of dangerous file types.](https://www.bleepingcomputer.com/news/microsoft/windows-11-smart-app-control-blocks-files-used-to-push-malware/) Also note that the ISG option with WDAC is apparently [somewhat less restrictive](https://github.com/HotCakeX/Harden-Windows-Security/wiki/WDAC-for-Lightly-Managed-Devices#security-considerations) in certain aspects than SAC. 
+If you only use a few basic apps, I recommend using SAC unless it's incompatible with your workflow. If you want to use it without reinstalling (for example, you only now use a limited set of apps but don't wanna go through the hassle of setup again), Microsoft does offer a way to [turn it back on](https://learn.microsoft.com/en-us/windows/apps/develop/smart-app-control/test-your-app-with-smart-app-control#configure-smart-app-control-using-the-registry) from the windows recovery environment.
 
 ## Microsoft Office
 
@@ -401,11 +391,12 @@ As bitlocker uses AES-128 by default, you can strengthen it by going to **Comput
 
 This is *extremely* important. Sometimes after firmware updates, you might be prompted to enter it in (more on that later).
 
-However, there have been [attacks against bitlocker's TPM authentication, and it is by no means perfect](https://github.com/Wack0/bitlocker-attacks). Should you wish to go the extra mile and deter against more than the "casual" physical attacker, you will have to take the following measures:
+However, there have been [attacks against bitlocker's TPM authentication, and it is by no means perfect](https://github.com/Wack0/bitlocker-attacks). Also, there are [issues with how Windows Hello biometrics is currently implemented by OEMs](https://blackwinghq.com/blog/posts/a-touch-of-pwn-part-i/). Should you wish to go the extra mile and deter against more than the "casual" physical attacker, you will have to take the following measures:
 
 - Use an enhanced PIN in addition to the TPM for pre boot authentication
 - Disable standby power management and shut down/hibernate before leaving the device unattended
 - Use legacy integrity validation, and pin Bitlocker to PCRs 0, 2, 4, 7, and 11.
+
 
 ## BlackLotus Revocations
 
