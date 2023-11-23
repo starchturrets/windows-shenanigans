@@ -87,24 +87,12 @@ If you are on Pro, you can't fully turn off spotlight. You can still turn off th
 - [ ] Enable **User Configuration > Administrative Templates > Windows Components > Cloud Content > Turn off Spotlight collection on Desktop.**
 - [ ] Enable **User Configuration > Administrative Templates > Windows Components > Cloud Content > Do not use diagnostic data for tailored experiences.**
 
-## Bing Start Menu / Cortana / Copilot
+## Bing Start Menu / Copilot
 
-By default, the start menu search searches the web, which leaks your local file queries to Microsoft. According to documentation, the following is needed to disable Cortana and Search on 22H2:
+By default, the start menu search searches the web, which leaks your local file queries to Microsoft. Copilot is also annoying.
 
-Find the Cortana Group Policy objects under **Computer Configuration > Administrative Templates > Windows Components > Search.**
-
-- [ ] Allow Cortana should be **Disabled**
-- [ ] Allow search and Cortana to use location should be **Disabled**
-- [ ] Do not allow web search should be **Enabled**
-- [ ] Don't search the web or display web results in Search should be **Enabled**
-
-In addition, I've found that you also need to set **User Configuration > Administrative Templates > Windows Components > File Explorer > Turn off display of recent search entries in the File Explorer search box** to **Enabled.**
-
-On 23H2, this is somewhat simplified:
-
-Uninstall Microsoft Bing and Cortana from **Settings > Apps > Installed Apps.** Then set the aforementioned file explorer group policy.  
-
-To knock out copilot, set **User Configuration > Administrative Templates > Windows Components > Windows Copilot​ > Turn off Windows Copilot** to **Enabled**.
+- [ ] Enable **User Configuration > Administrative Templates > Windows Components > File Explorer > Turn off display of recent search entries in the File Explorer search box**
+- [ ] Enable **User Configuration > Administrative Templates > Windows Components > Windows Copilot​ > Turn off Windows Copilot** to **Enabled**.
 
 
 ## Defender
