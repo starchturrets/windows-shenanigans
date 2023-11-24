@@ -7,7 +7,7 @@ Inspired by:
 
 https://github.com/beerisgood/Windows11_Hardening
 
-https://github.com/HotCakeX/Harden-Windows-Security
+https://github.com/troennes/private-secure-windows
 
 Prioritizes security as much as possible when not to the detriment of privacy
 
