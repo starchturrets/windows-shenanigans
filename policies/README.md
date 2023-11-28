@@ -1,6 +1,6 @@
 # Group Policy deployment with LGPO
 
-Since it is a pain to configure dozens of group policies manually, here is a way to apply them automatically.
+Since it is a pain to configure a lot of group policies manually, here is a way to apply them automatically. 
 
 1. Download and extract the policies.zip from the releases section.
 2. Open the policies directory in an elevated powershell Terminal.
@@ -16,7 +16,7 @@ Since it is a pain to configure dozens of group policies manually, here is a way
     .\LGPO.exe /m .\machine.pol
     .\LGPO.exe /u .\user.pol
 ```
-~~(Note that you have to run the second line on every new user account created.)~~ From what I've seen, user configuration policies also apply to new users created.
+(If you want to apply policies for Microsoft Edge just repeat the above steps, but with Edge.txt instead of machine.txt).
 
 7. Reboot
 
