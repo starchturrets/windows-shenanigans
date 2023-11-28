@@ -22,10 +22,5 @@ Software\Policies\Microsoft\Windows\Explorer
 DisableSearchBoxSuggestions
 DWORD:1
 
-User
-Software\Policies\Microsoft\Windows\WindowsCopilot
-TurnOffWindowsCopilot
-DWORD:1
-
 ; PARSING COMPLETED.
 ; ----------------------------------------------------------------------
