@@ -244,7 +244,7 @@ Microsoft Store apps can be sandboxed, however **just because an app is on the S
 
 When possible, avoid running unsigned apps. 
 
-# Virtualizazion Based Security and related settings
+# Virtualization Based Security and related settings
 
 https://support.microsoft.com/en-us/windows/device-protection-in-windows-security-afa11526-de57-b1c5-599f-3a4c6a61c5e2
 
@@ -256,12 +256,18 @@ If it says: "Standard hardware security not supported":
 - [ ] There is a feature (such as secure boot or the TPM) that must be toggled in the firmware settings
 - [ ] It is a Windows Security bug - in which case you can manually validate by checking `msinfo32.exe`
 
-Once you see "Your device meets the requirements for standard hardware security", you can then go to **Core Isolation** and toggle on Memory Integrity, the Local Security Authority protection, as well as the Microsoft Vulnerable Driver Blocklist. In some cases, Windows 11 has this toggled on by default already, but this is not guaranteed afaik. After a reboot, the bottom of the device security section should say "Your device meets the requirements for enhanced hardware security".
+Once you see "Your device meets the requirements for standard hardware security", you can then go to **Core Isolation** and toggle on Memory Integrity, as well as the Microsoft Vulnerable Driver Blocklist. In some cases, Windows 11 auto enables it on clean install, but this is not guaranteed. After a reboot, the bottom of the device security section should then say "Your device meets the requirements for enhanced hardware security".
 
-There may be some extra mitigations there; which precisely is determined by your windows edition (credential guard is apparently a windows enterprise only feature), or hardware (firmware protection or kernel-mode hardware-enforced stack protection). If your device does not support them, do not attempt to force them on with group policies. 
+The group policies can be found under **Computer Configuration > Administrative Templates > System > Turn On Virtualisation Based Security**.
 
-It's also worth noting that you can use group policies to enforce what features *are* supported with a "UEFI Lock" that prevents them from being toggled off without disabling secure boot (which requires physical access.)
+- [ ] Select Platform Security Level: Secure Boot (this will enable as much protection as is supported, [unlike the Secure Boot with DMA option](https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity#use-registry-keys-to-enable-memory-integrity))
+- [ ] Select Virtualization Based Protection of Code Integrity and set it to Enabled Without UEFI Lock
+- [ ] Tick "Require UEFI Memory Attributes Table"
+- [ ] Credential Guard seems to be oriented towards mitigating an attacker from moving laterally within an enterprise network, so prolly best to leave it at not configured as it doesn't seem that relevant to a home user (also, it's a windows enterprise only thing anyways)
+- [ ] [Secure Launch](https://learn.microsoft.com/en-us/windows/security/hardware-security/system-guard-secure-launch-and-smm-protection) is a secured core thing, if you did not see "Firmware Protection" in the core isolation settings page, leave the policy at not configured as it's unsupported anyways.
+- [ ]  Kernel-mode hardware-enforced stack protection is also hardware dependent, do not configure it if you didn't see it in the core isolation settings page
 
+After configuring policies, reboot and check the core isolation settings page. If memory integrity has turned off, then that means that [UEFI MAT](https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-vbs) is not supported by the firmware. Untick the policy for it. Then, you can set Virtualization Based Protection of Code Integrity to enabled with UEFI Lock, and reboot. This will mitigate a remote attacker with admin access from simply forcing it off. You can test this for yourself by setting the policy to disabled and rebooting - memory integrity will still be reported as on. The only way to disable it appears to be by having physical access and disabling secure boot, or by having a [secure boot exploit](https://www.welivesecurity.com/2023/03/01/blacklotus-uefi-bootkit-myth-confirmed/). 
 
 ## Smart App Control
  
