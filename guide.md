@@ -178,6 +178,8 @@ Windows Plug and Play auto installers (which on top of being potential bloat hav
 
 **Computer Configuration > Administrative Templates > System > Device Installation > Prevent device metadata retrieval from the Internet** to **Enabled**.
 
+Note: the proper way to disable it is documented at https://www.bleepingcomputer.com/news/microsoft/how-to-block-windows-plug-and-play-auto-installing-insecure-apps/, this gpo [doesn't actually fully disable co installers executed as part of the driver.](https://mastodon.social/@faebudo@ioc.exchange/111499421425476615)
+
 Start menu shortcuts and preinstalled third party apps can be easily removed by right clicking and unpinning / uninstalling them.
 
 Microsoft Apps such as Cortana can be removed using the `winget` package manager.
