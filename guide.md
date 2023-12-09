@@ -260,7 +260,7 @@ If it says: "Standard hardware security not supported":
 
 Once you see "Your device meets the requirements for standard hardware security", you can then go to **Core Isolation** and toggle on Memory Integrity, as well as the Microsoft Vulnerable Driver Blocklist. In some cases, Windows 11 auto enables it on clean install, but this is not guaranteed. After a reboot, the bottom of the device security section should then say "Your device meets the requirements for enhanced hardware security".
 
-The group policies can be found under **Computer Configuration > Administrative Templates > System > Turn On Virtualisation Based Security**.
+The group policies can be found under **Computer Configuration > Administrative Templates > System > Device Guard > Turn On Virtualization Based Security**.
 
 - [ ] Select Platform Security Level: Secure Boot (this will enable as much protection as is supported, [unlike the Secure Boot with DMA option](https://learn.microsoft.com/en-us/windows/security/hardware-security/enable-virtualization-based-protection-of-code-integrity#use-registry-keys-to-enable-memory-integrity))
 - [ ] Select Virtualization Based Protection of Code Integrity and set it to Enabled Without UEFI Lock
