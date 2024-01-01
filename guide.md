@@ -8,6 +8,7 @@ Disclaimer: I am not a security researcher, I simply read documentation, played 
 - [ ] Does your device officially support Windows 11? Even if supported, certain features in the firmware settings on some older devices, such as TPM or secure boot, may be disabled by default and must be toggled on. [Look for a "PTT" setting for Intel devices and "fTPM" for AMD ones.](https://nitter.woodland.cafe/dwizzzleMSFT/status/1408144290954366976#m) While it is technically possible to [bypass the requirements and install on unsupported hardware](https://support.microsoft.com/en-us/windows/installing-windows-11-on-devices-that-don-t-meet-minimum-system-requirements-0b2dc4a2-5933-4ad4-9c09-ef0a331518f1), you may want to consider a Linux distro. 
 - [ ] If you're not planning on dualbooting, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will slightly improve boot security because instead of trusting the many bootloaders signed by it you will only be trusting Windows and your OEM certificates.   
 - [ ] Does your OEM/Motherboard manufacturer provide you with bloatware delivered through the WPBT? (Example: Asus Armory Crate). There may be an option in the firmware to disable it.
+- [ ] You may also have to enable virtualization support in the firmware settings for windows to take advantage of it, on certain devices this may not be on by default
 
 ## On Install
 
@@ -97,8 +98,23 @@ By default, the start menu search searches the web, which leaks your local file 
 
 ## Defender
 
+### Virus and Threat Protection settings: 
+
+https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/cloud-protection-microsoft-antivirus-sample-submission?view=o365-worldwide#how-cloud-protection-and-sample-submission-work-together
+
+Defender's cloud protection relies on collecting metadata about suspicious files (both executable and non executable), which ostensibly assists it in determining if said file is malicious or not (See the link for examples of what metadata is collected). Should this not be enough, it will upload, or request to upload the file for further analysis. The default appears to be to automatically upload the file if it is executable, and therefore unlikely to contain PII (as opposed to say, PDFs or DOCX files). Otherwise, it will prompt the user for consent.
+
+There are two options for handling this:
+
+1. Limit what data is sent to Microsoft, and accept the reduced security due to defender being less effective
+2. Allow Microsoft to collect some metadata and the occassional executable sample in exchange for security
+
+Which option you go with is dependent on your threat model. For example, the latter option might be preferable if you use the windows install purely for gaming.
+
+To go with the former option, disable both cloud protection and automatic sample submission.
+
 Go to **Windows Security > Virus and Threat Protection > Manage Settings > Automatic Sample Submission.**
-Click to disable it.
+Click to disable it. 
 
 ## Smart App Control 
 
@@ -114,7 +130,7 @@ It is ultimately up to you whether or not to use it (more on that below).
 
 If you have chosen to not use Smart App Control, go to **Windows Security > App and Browser Control > Check Apps and Files** and disable it.
 
-It is probably the best to also disable **Smartscreen for Microsoft Edge**, as it has been shown to leak full URLs and browsing history to Microsoft. 
+Even if you have chosen to use SAC/Smartscreen, it is probably the best to also disable **Smartscreen for Microsoft Edge**, as it has been shown to leak full URLs and browsing history to Microsoft. 
 
 ## Edge 
 
