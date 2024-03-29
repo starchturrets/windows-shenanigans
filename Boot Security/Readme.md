@@ -8,7 +8,9 @@ Self tests done to show how much the firmware protects itself. Passing HSTI (see
 
 Linux equivalent is doing `sudo fwupdmgr security` (can also be done on a live USB). Not sure what HSI level HSTI passing is equivalent to - HSI 2? 
 
+# Intel Bootguard / AMD Platform Secure Boot
 
+# Intel ME / AMD PSP
 
 # TPMs
 
@@ -18,7 +20,8 @@ fTPMs vs discrete TPMs, Pluton, uses?
 TPM uses in a non enterprise environment:
 - Bitlocker
 - Windows Hello PIN ratelimiting
-- 
+- Passkey storage?
+
 # Secure Boot
 
 - Trusted certs - Windows vs Microsoft certs, issues with revoking things signed by them (Blacklotus and Boothole respectively) 
