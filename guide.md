@@ -5,10 +5,9 @@ Disclaimer: I am not a security researcher, I simply read documentation, played 
 
 ## Things to note before installing
  
-- [ ] Does your device officially support Windows 11? Even if supported, certain features in the firmware settings on some older devices, such as TPM or secure boot, may be disabled by default and must be toggled on. [Look for a "PTT" setting for Intel devices and "fTPM" for AMD ones.](https://nitter.woodland.cafe/dwizzzleMSFT/status/1408144290954366976#m) While it is technically possible to [bypass the requirements and install on unsupported hardware](https://support.microsoft.com/en-us/windows/installing-windows-11-on-devices-that-don-t-meet-minimum-system-requirements-0b2dc4a2-5933-4ad4-9c09-ef0a331518f1), you may want to consider a Linux distro. 
+- [ ] Does your hardware officially support Windows 11? Even if supported, certain features in the firmware settings on some older devices, such as TPM, secure boot, or virtualization support, may be disabled by default and must be toggled on. [Look for a "PTT" setting for Intel devices and "fTPM" for AMD ones.](https://nitter.woodland.cafe/dwizzzleMSFT/status/1408144290954366976#m) While it is technically possible to [bypass the requirements and install on unsupported hardware](https://support.microsoft.com/en-us/windows/installing-windows-11-on-devices-that-don-t-meet-minimum-system-requirements-0b2dc4a2-5933-4ad4-9c09-ef0a331518f1), you may want to consider a Linux distro. 
 - [ ] If you're not planning on dualbooting, and your device gives you the option to, disable the Microsoft UEFI CA in the secure boot settings. This will slightly improve boot security because instead of trusting the many bootloaders signed by it you will only be trusting Windows and your OEM certificates.   
 - [ ] Does your OEM/Motherboard manufacturer provide you with bloatware delivered through the WPBT? (Example: Asus Armory Crate). There may be an option in the firmware to disable it.
-- [ ] You may also have to enable virtualization support in the firmware settings for windows to take advantage of it, on certain devices this may not be on by default
 
 ## On Install
 
@@ -41,7 +40,7 @@ https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-window
 
 https://learn.microsoft.com/en-us/windows/privacy/manage-windows-11-endpoints
 
-Also, you can just auto apply the below group policies that turn off phone homey stuff with [LGPO](https://github.com/starchturrets/windows-shenanigans/tree/main/policies). 
+Also, you can just auto apply most of the below group policies that turn off phone homey stuff with [LGPO](https://github.com/starchturrets/windows-shenanigans/tree/main/policies). 
 
 Based off what I've seen, these are the more relevant items:
 
@@ -116,7 +115,7 @@ To go with the former option, disable both cloud protection and automatic sample
 Go to **Windows Security > Virus and Threat Protection > Manage Settings > Automatic Sample Submission.**
 Click to disable it. 
 
-## Smart App Control 
+## Smart App Control / Reputation Based Protection
 
 Smart App Control (and Smartscreen in general) is a tradeoff between privacy and security. On the one hand, it improves security by using reputation checks to make sure legitimate files are not blocked while blocking malware, on the other hand it needs to send file metadata to Microsoft in order to function. As the Microsoft Privacy Policy puts it: 
 
@@ -128,7 +127,7 @@ Smart App Control (and Smartscreen in general) is a tradeoff between privacy and
 
 It is ultimately up to you whether or not to use it (more on that below).
 
-If you have chosen to not use Smart App Control, go to **Windows Security > App and Browser Control > Check Apps and Files** and disable it.
+If you have chosen to not use Smart App Control go to **Windows Security > App and Browser Control > Reputation Based Protection** and disable everything there.
 
 Even if you have chosen to use SAC/Smartscreen, it is probably the best to also disable **Smartscreen for Microsoft Edge**, as it has been shown to leak full URLs and browsing history to Microsoft. 
 
@@ -226,7 +225,7 @@ Check your Windows Update settings page regularly, especially on the second Tues
 
 Windows can also automatically update certain Microsoft products such as Office through windows update, though in my experience this isn't perfect.
 
-Also check "Optional Updates" for driver and firmware updates. However, in some cases the drivers provided by Windows Update are old, and it is better to use the OEM tool to update drivers. This goes for AMD devices.  
+Also check "Optional Updates" for driver and firmware updates. However, in some cases the drivers provided by Windows Update are old, and it is better to use the OEM tool to update drivers. 
 
 Winget can update some apps, but not those from the Microsoft Store, so you'll have to check things there separately.
 
@@ -240,7 +239,7 @@ Set UAC to the highest level: type "UAC" into the start menu, click the settings
 
 While having to authenticate to elevate is an inconvenience, you can mitigate this somewhat by using a relatively short Windows Hello PIN or biometrics. While it may seem less secure to have a short pin, this is backed by the TPM, which should enforce ratelimiting. (See: these [two](https://learn.microsoft.com/en-us/windows/security/identity-protection/hello-for-business/hello-why-pin-is-better-than-password#pin-is-backed-by-hardware) documentation [articles](https://learn.microsoft.com/en-us/windows/security/hardware-security/tpm/how-windows-uses-the-tpm) from Microsoft Learn about it.)
 
-By default, Windows forces you to set security questions for a new local account, as well as go through the OOBE again. To disable:
+By default, Windows forces you to set security questions for a new local account, as well as go through the OOBE again. This isn't strictly a problem, but can be pretty annoying. To disable:
 
 - [ ] Enable the following group policy: **Computer Configuration > Administrative Templates > Windows Components > Credential User Interface > Prevent the use of security questions for local accounts**
 - [ ] Enable the following group policy **Computer Configuration > Administrative Templates > Windows Components > OOBE > Don't launch privacy settings experience on user logon**
@@ -287,6 +286,10 @@ The group policies can be found under **Computer Configuration > Administrative 
 
 After configuring policies, reboot and check the core isolation settings page. If memory integrity has turned off, then that means that [UEFI MAT](https://learn.microsoft.com/en-us/windows-hardware/design/device-experiences/oem-vbs) is not supported by the firmware. Untick the policy for it. Then, you can set Virtualization Based Protection of Code Integrity to enabled with UEFI Lock, and reboot. This will mitigate a remote attacker with admin access from simply forcing it off. You can test this for yourself by setting the policy to disabled and rebooting - memory integrity will still be reported as on. The only way to disable it appears to be by having physical access and disabling secure boot, or by having a [secure boot exploit](https://www.welivesecurity.com/2023/03/01/blacklotus-uefi-bootkit-myth-confirmed/). 
 
+## Controlled Folder Access
+
+Go to **Virus and Threat Protection > Ransomware Protection** and toggle Controlled Folder Access. This will restrict the write permission of applications to certain folders unless explicitly allowlisted.
+
 ## Smart App Control
  
 Windows offers several methods to stop untrusted executables from running, such as AppLocker or Smart App Control / WDAC. Each of them have their own advantages and disadvantages, but they do help mitigate attacks such as those from clicking on disguised executables.  
@@ -304,9 +307,7 @@ So, SAC is probably a good idea under the following conditions:
 
 If you only use a few basic apps, I recommend using SAC unless it's incompatible with your workflow. If you want to use it without reinstalling (for example, you only now use a limited set of apps but don't wanna go through the hassle of setup again), Microsoft does offer a way to [turn it back on](https://learn.microsoft.com/en-us/windows/apps/develop/smart-app-control/test-your-app-with-smart-app-control#configure-smart-app-control-using-the-registry) from the windows recovery environment.
 
-## Microsoft Office
-
-Unfortunately, unless you're on an Enterprise 365 Office subscription (unlikely) you will not be able to make use of MDAG like on Edge. That being said, there are still a few steps you can take to improve security on Office.
+## Attack Surface Reduction Rules
 
 https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction?view=o365-worldwide
 
@@ -327,13 +328,36 @@ ASR rules can be found under: **Computer Configuration > Administrative Template
 | Block Office communication application from creating child processes                              | `26190899-1602-49e8-8b27-eb1d0a1ce869` |
 | Block persistence through WMI event subscription                                                  | `e6db77e5-3df2-4cf1-b95a-636979351e5b` |
 | Block process creations originating from PSExec and WMI commands                                  | `d1e49aac-8f56-4280-b9ba-993a6d77406c` |
+| Block rebooting machine in Safe Mode (preview)                                                    | `33ddedf1-c6e0-47cb-833e-de6133960387` | 	
 | Block untrusted and unsigned processes that run from USB                                          | `b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4` |
+| Block use of copied or impersonated system tools (preview)	                                       | `c0033c00-d16d-4114-a5a0-dc9b3a7d2ceb` | 
+| Block Webshell creation for Servers	                                                              | `a8f5898e-1dc8-49a9-9878-85004b8a61e6` |
 | Block Win32 API calls from Office macros                                                          | `92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b` |
 | Use advanced protection against ransomware                                                        | `c1db55ab-c21a-4637-bb3f-a12568109d35` |
 
-Activate it, and click the display status button. Then paste in the GUIDs of the ASR rules you wish to activate in the left column and 1 in the right column to activate them. You can get the GUIDs from here: https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference. It is possible that it could interfere with your workflow but I personally haven't noted any issue with just turning all of them on.
+Activate it, and click the display status button. Then paste in the GUIDs of the ASR rules you wish to activate in the left column and 1 in the right column to activate them. You can get the GUIDs from [here](https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/attack-surface-reduction-rules-reference), or from the above table. However, some of the ASR rules do not appear relevant to a home user. For example: "Block Webshell creation for Servers". The rules I would currently recommend using are:
 
-In addition, you can apply the [Microsoft 365 Security baselines for Enterprise.](https://learn.microsoft.com/en-us/deployoffice/security/security-baseline) It will disable the opening/saving of older file formats as well as unsigned script macros. This is not as strong of a security boundary as MDAG, but it should still be helpful for reducing attack surface. While tailored for Enterprise Office installs, many policies appear to also be applicable to others such as LTSC 2021.
+| ASR Rule                                                                                          | GUID                                   |
+|---------------------------------------------------------------------------------------------------|----------------------------------------|
+| Block Adobe Reader from creating child processes                                                  | `7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c` |
+| Block all Office applications from creating child processes                                       | `d4f940ab-401b-4efc-aadc-ad5f3c50688a` |
+| Block credential stealing from the Windows local security authority subsystem (lsass.exe)         | `9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2` |
+| Block executable content from email client and webmail                                            | `be9ba2d9-53ea-4cdc-84e5-9b1eeee46550` |
+| Block execution of potentially obfuscated scripts                                                 | `5beb7efe-fd9a-4556-801d-275e5ffc04cc` |
+| Block JavaScript or VBScript from launching downloaded executable content                         | `d3e037e1-3eb8-44c8-a917-57927947596d` |
+| Block Office applications from creating executable content                                        | `3b576869-a4ec-4529-8536-b80a7769e899` |
+| Block Office applications from injecting code into other processes                                | `75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84` |
+| Block Office communication application from creating child processes                              | `26190899-1602-49e8-8b27-eb1d0a1ce869` |
+| Block persistence through WMI event subscription                                                  | `e6db77e5-3df2-4cf1-b95a-636979351e5b` |
+| Block process creations originating from PSExec and WMI commands                                  | `d1e49aac-8f56-4280-b9ba-993a6d77406c` |
+| Block rebooting machine in Safe Mode (preview)                                                    | `33ddedf1-c6e0-47cb-833e-de6133960387` | 	
+| Block untrusted and unsigned processes that run from USB                                          | `b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4` |
+| Block use of copied or impersonated system tools (preview)	                                       | `c0033c00-d16d-4114-a5a0-dc9b3a7d2ceb` | 
+| Block Win32 API calls from Office macros                                                          | `92e97fa1-2edf-4476-bdd6-9dd0b4dddc7b` |
+
+(Driver blocking has had issues with the blocklist updates, and the reputation based rules such as advanced ransomware protection appear redundant to SAC and depend on one's threat model).
+
+In addition, you can apply the [Microsoft 365 Security baselines for Enterprise.](https://learn.microsoft.com/en-us/deployoffice/security/security-baseline) It will disable the opening/saving of older file formats as well as unsigned script macros. This is not as strong of a security boundary as a full on virtual machine, but it should still be helpful for reducing attack surface. While tailored for Enterprise Office installs, many policies appear to also be applicable to others such as LTSC 2021.
 
 The baseline can be downloaded from here: https://www.microsoft.com/en-us/download/details.aspx?id=55319. Make sure to select `LGPO.zip` as well. After unzipping both files, move `LGPO.exe` to the `\Scripts\Tools` subdirectory. You can then open an admin Powershell in the `\Scripts` subdirectory and run:
 
