@@ -436,12 +436,17 @@ However, there have been [attacks against bitlocker's TPM authentication, and it
 
 ## BlackLotus Revocations
 
+Microsoft has rolled out another set of secure boot revocations with the April Patch Tuesday updates, placing the Windows Production CA 2011 certificate into the Secure Boot UEFI Forbidden List (DBX), and ostensibly revoking the bootloaders it has signed over the past ~10 years. It is replaced in the Secure Boot Signature database (DB) by the Windows UEFI CA 2023. However they are not automatically applying them yet, and it currently requires manual configuration to take effect.  
+
 https://support.microsoft.com/en-us/topic/kb5025885-how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d
 
-1. Make sure your Windows install is fully up to date (has the July 11 2023 updates installed)
-2. Enter the following into an elevated command prompt: `reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Secureboot /v AvailableUpdates /t REG_DWORD /d 0x30 /f`
-3. Restart.
-4. Wait five minutes.
-5. Restart again.
+According to Microsoft, there are issues with the Secure Boot updates for certain HP devices, ARM64 based devices, Mac Computers, VMWare Virtual Machines, as well as systems running Symantec Endpoint Encryption (see the above link for details). 
 
-Event IDs 1035 and 276 should be logged under the Windows Event Viewer.
+To apply the mitigations, follow the steps at https://support.microsoft.com/en-us/topic/kb5025885-how-to-manage-the-windows-boot-manager-revocations-for-secure-boot-changes-associated-with-cve-2023-24932-41a975df-beb2-40c1-99a3-b3ff139f832d#bkmk_mitigation_guidelines.
+
+**Save your bitlocker recovery key first.** If you have additional PCRs pinned suspend Bitlocker before the steps that require you to restart twice.
+
+```
+manage-bde -protectors c: -disable -rebootcount 2  
+```
+Replace C: with whatever your system drive is. 
